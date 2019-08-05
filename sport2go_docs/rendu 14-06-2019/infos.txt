@@ -1,0 +1,14 @@
+Membres du groupe : 
+Alexandre Robert
+Jordan Leleu 
+Sébastien Fellenberg
+
+
+
+Remarques :
+
+Dans le diagramme de cas d'utilisation nous avons préféré regrouper les cas d'utilisations par bloc pour favoriser la lisibilité 
+avec les nombreux liens entre les types des users et les cas d'utilisation, sachant que l'utilisateur user regroupe les 3 autres.
+
+Concernant le diagramme de flux nous avons préféré improviser un schéma qui représente l'ensemble des acteurs sollicité par l'application.
+Nous ne savons pas encore quel port et quel protocole seront concernés par ces flux pour le moment.
