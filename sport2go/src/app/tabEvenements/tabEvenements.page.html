@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Évenements
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+        <ion-item *ngFor="let event of listEvenements">
+            <ion-card>
+                  <ion-card-header>
+                    {{event.titre}}
+                  </ion-card-header>
+                
+                  <ion-card-content>
+                    {{event.description}}
+                  </ion-card-content>
+                
+                </ion-card>
+        </ion-item>
+      </ion-list>
+</ion-content>
