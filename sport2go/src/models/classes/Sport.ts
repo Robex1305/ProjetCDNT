@@ -4,5 +4,5 @@ class Sport{
     public image : string;
     public description : string;
 
-    constructor() {}
+    public constructor() {}
 }

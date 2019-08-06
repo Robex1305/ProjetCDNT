@@ -5,5 +5,5 @@ class Groupe {
     public image : string;
     public membres : Array<Utilisateur>;
 
-    constructor() {}
+    public constructor() {}
 }

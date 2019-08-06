@@ -12,5 +12,5 @@ class Utilisateur{
     public sport_secondaires : Array<Sport>;
     public listeStatistiques : Array<Statistique>;
 
-    constructor() {}
+    public constructor() {}
 }

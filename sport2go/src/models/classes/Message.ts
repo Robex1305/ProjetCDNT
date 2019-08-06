@@ -3,5 +3,5 @@ class Message{
     public contenu : string;
     public auteur : Utilisateur;
 
-    constructor() {}
+    public constructor() {}
 }

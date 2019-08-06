@@ -10,19 +10,19 @@
 <ion-content>
   <ion-list>
         <ion-item *ngFor="let event of listEvenements">
-            <ion-card>
+            <ion-card style="width: 100%;" type="button" (click)="onCardClick(event)">
                   <ion-card-header>
                     {{event.titre}}
                   </ion-card-header>
                 
                   <ion-card-content>
-                    {{event.description}}
+                    <!-- {{event.geolocalisation.libelle}}
+                    <br>
+                    {{event.dateEvenementFormate}}
+                    <br>
+                    {{event.heureEvenementFormate}} -->
                   </ion-card-content>
-<<<<<<< HEAD
                   
-=======
-                
->>>>>>> 4df85ba4128be05ae33b0fb067838f3395f39e6a
                 </ion-card>
         </ion-item>
       </ion-list>

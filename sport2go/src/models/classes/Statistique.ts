@@ -5,5 +5,5 @@ class Statistique{
     public score : number;
     public niveau : number;
 
-    constructor() {}
+    public constructor() {}
 }

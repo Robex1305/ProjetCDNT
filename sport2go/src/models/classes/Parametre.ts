@@ -1,3 +1,3 @@
 class Parametre{
-    constructor() {}
+    public constructor() {}
 }

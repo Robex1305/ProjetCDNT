@@ -6,5 +6,5 @@ class Adresse{
     public departement : string;
     public pays : EnumPays;
 
-    constructor() {}
+    public constructor() {}
 }

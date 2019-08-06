@@ -4,5 +4,5 @@ class Conversation{
     public date_creation : Date;
     public listeMessages : Array<Message>;
 
-    constructor() {}
+    public constructor() {}
 }
