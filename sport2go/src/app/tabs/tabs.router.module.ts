@@ -28,6 +28,26 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'tabnouvelevenement',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../tabnouvelevenement/tabnouvelevenement.module').then(m => m.TabnouvelevenementPageModule)
+          }
+        ]
+      },
+      {
+        path: 'tabhome',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../tabhome/tabhome.module').then(m => m.TabhomePageModule)
+          }
+        ]
+      },
+      {
         path: 'tab2',
         children: [
           {
