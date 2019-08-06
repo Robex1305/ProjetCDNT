@@ -1,29 +1,20 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Évenements
-    </ion-title>
-  </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
-  <ion-list>
-        <ion-item *ngFor="let event of listEvenements">
-            <ion-card style="width: 100%;" type="button" (click)="onCardClick(event)">
-                  <ion-card-header>
-                    {{event.titre}}
-                  </ion-card-header>
-                
-                  <ion-card-content>
-                    <!-- {{event.geolocalisation.libelle}}
+  <ion-card *ngFor="let event of listEvenements" type="button" (click)="onCardClick(event)">
+    <ion-card-header>
+      {{event.titre}}
+    </ion-card-header>
+
+    <ion-card-content>
+      <!-- {{event.geolocalisation.libelle}}
                     <br>
                     {{event.dateEvenementFormate}}
                     <br>
                     {{event.heureEvenementFormate}} -->
-                  </ion-card-content>
-                  
-                </ion-card>
-        </ion-item>
-      </ion-list>
+    </ion-card-content>
+
+  </ion-card>
 </ion-content>

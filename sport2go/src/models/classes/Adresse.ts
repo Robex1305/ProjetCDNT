@@ -1,4 +1,4 @@
-class Adresse{
+export class Adresse{
     public adresseId : number;
     public rue : string;
     public cp : number;

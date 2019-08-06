@@ -1,3 +1,3 @@
-class Parametre{
+export class Parametre{
     public constructor() {}
 }

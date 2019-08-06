@@ -1,4 +1,6 @@
-class Conversation{
+import { Message } from './Message';
+
+export class Conversation{
     public conversation_id : string;
     public titre : string;
     public date_creation : Date;

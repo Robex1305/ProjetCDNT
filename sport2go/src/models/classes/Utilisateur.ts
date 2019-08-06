@@ -1,4 +1,10 @@
-class Utilisateur{
+import { Evenement } from "./Evenement";
+import { Conversation } from './Conversation';
+import { Parametre } from './Parametre';
+import { Sport } from './Sport';
+import { Statistique } from './Statistique';
+
+export class Utilisateur{
     public utilisateur_id : number;
     public nom : string;
     public prenom : string;
@@ -11,6 +17,7 @@ class Utilisateur{
     public sport_principaux : Array<Sport>;
     public sport_secondaires : Array<Sport>;
     public listeStatistiques : Array<Statistique>;
+    public listeEvenements : Array<Evenement>;
 
     public constructor() {}
 }
