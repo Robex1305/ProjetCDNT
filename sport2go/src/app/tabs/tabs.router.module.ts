@@ -18,6 +18,16 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'tabEvenements',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../tabEvenements/tabEvenements.module').then(m => m.TabEvenementsPageModule)
+          }
+        ]
+      },
+      {
         path: 'tab2',
         children: [
           {
