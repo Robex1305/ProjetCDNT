@@ -1,0 +1,18 @@
+<ion-header>
+</ion-header>
+
+<ion-content>
+    <ion-card *ngFor="let event of listEvenements" type="button" (click)="onCardClick(event)">
+      <ion-card-header>
+        {{event.titre}}
+      </ion-card-header>
+
+      <ion-card-content>
+        <!-- {{event.geolocalisation.libelle}}
+                    <br>
+                    {{event.dateEvenementFormate}}
+                    <br>
+                    {{event.heureEvenementFormate}} -->
+      </ion-card-content>
+    </ion-card>
+</ion-content>

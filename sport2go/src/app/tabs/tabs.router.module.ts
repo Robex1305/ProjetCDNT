@@ -8,12 +8,12 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'tabmesevenements',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+              import('../tabmesevenements/tabmesevenements.module').then(m => m.TabmesevenementsPageModule)
           }
         ]
       },
@@ -58,25 +58,25 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'tab3',
+        path: 'tabmessages',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+              import('../tabmessages/tabmessages.module').then(m => m.TabmessagesPageModule)
           }
         ]
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/tabhome',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/tabhome',
     pathMatch: 'full'
   }
 ];
