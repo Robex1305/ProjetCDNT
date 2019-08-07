@@ -1,4 +1,6 @@
-class Statistique{
+import { Sport } from './Sport';
+
+export class Statistique{
     public statistique_id : number;
     public sportConcerne : Sport;
     public temps : number;

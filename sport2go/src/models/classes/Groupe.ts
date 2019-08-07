@@ -1,4 +1,6 @@
-class Groupe {
+import { Utilisateur } from './Utilisateur';
+
+export class Groupe {
     public group_id : number;
     public nom : string;
     public description : string;

@@ -24,3 +24,20 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+ion-card {
+    --background: rgb(230, 230, 230) !important;
+    --color: rgb(20,20,20) !important;
+}
+
+ion-content{
+    --background: rgb(50,50,50);
+}
+
+ion-tabs{
+    --background: rgb(50,50,50);
+}
+
+ion-tab-bar{
+    --background: rgb(60,60,60);
+}

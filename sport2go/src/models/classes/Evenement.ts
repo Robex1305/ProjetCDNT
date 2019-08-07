@@ -1,4 +1,6 @@
 import { Geolocalisation } from './Geolocalisation';
+import { Adresse } from './Adresse';
+import { Utilisateur } from './Utilisateur';
 
 export class Evenement {
     public evenementId : number;
