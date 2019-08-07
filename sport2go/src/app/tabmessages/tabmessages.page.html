@@ -1,0 +1,33 @@
+<ion-header>
+</ion-header>
+
+<ion-content>
+
+    <ion-card *ngFor="let conv of listeConversationsGroupes">
+      <ion-card-header>
+        {{conv.titre}}
+      </ion-card-header>
+      
+      <ion-card-content>
+        <div>
+            {{conv.description}} <br>
+            {{conv.membres.length}} membres
+        </div>
+      </ion-card-content>
+      
+    </ion-card>
+
+    <ion-card *ngFor="let conv of listeConversationsSimples">
+        <ion-card-header>
+          {{conv.titre}}
+        </ion-card-header>
+        
+        <ion-card-content>
+            <div style="color: green" *ngIf="conv.destinataire.isEnLigne">En ligne</div>
+            <div style="color: red" *ngIf="!conv.destinataire.isEnLigne">Hors ligne</div>
+        </ion-card-content>
+        
+      </ion-card>
+
+
+</ion-content>
