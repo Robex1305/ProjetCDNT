@@ -5,12 +5,73 @@
       [icon]="buttonIcon"
       slot="start">
       </ion-back-button>
-    <ion-title>{{evenement.titre}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
+  <ion-grid>
+    <ion-row style="text-align: center">
+      <ion-col>
+        <h1>{{evenement.titre}}</h1>
+      </ion-col>
+    </ion-row>
 
+
+    <ion-row style="text-align: center; vertical-align:middle">
+        <ion-col>
+          <h4>
+            <ion-icon name="calendar"></ion-icon>
+          </h4>
+            {{evenement.dateEvenementFormate}}
+          
+
+        </ion-col>
+
+        <ion-col>
+          <h4>
+            <ion-icon name="clock"></ion-icon>
+          </h4>
+            {{evenement.heureEvenementFormate}}
+          
+        </ion-col>
+
+        <ion-col>
+            <h4>
+              <ion-icon name="pin"></ion-icon>
+            </h4>
+              {{evenement.geolocalisation.libelle}}
+            
+          </ion-col>
+     </ion-row>
+
+     <ion-row>
+        <ion-col>
+            <img src="/assets/eventImageExemple.jpg"/>
+        </ion-col>
+      </ion-row>
+
+     <ion-row>
+       <ion-col>
+            <h3><ion-icon name="information-circle"></ion-icon> Description:</h3><br>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis atque rem dicta eum quasi, laborum quod. Totam porro quae, laudantium culpa temporibus rerum, mollitia harum, maiores reiciendis magnam hic ratione?
+       </ion-col>
+     </ion-row>
+
+     <ion-row>
+        <ion-col>
+          <h3><ion-icon name="map"></ion-icon> Accéder au lieu de l'évenement:</h3> <br>
+            <img src="/assets/exempleMaps.png"/>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
 </ion-content>
+
+<ion-footer>
+    <ion-button expand="full">
+        Participer 
+        &nbsp;
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+</ion-footer>
 

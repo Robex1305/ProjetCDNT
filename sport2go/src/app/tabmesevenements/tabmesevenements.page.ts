@@ -10,17 +10,17 @@ import { NavigationExtras } from '@angular/router';
 })
 export class TabmesevenementsPage {
   listEvenements: Array<Evenement>;
-  
   public constructor(public navController : NavController) {
   }
 
   getEvenements(){
     let listeEvenements = new Array<Evenement>();
-    for (let index = 0; index < 3; index++) {
+    for (let index = 2; index < 5; index++) {
       let e = new Evenement();
+      e._dateEvenement = new Date(2019,9, index, (6+index), 30);
+      console.log(e.dateEvenementFormate);
       e.titre = "Evenement n° " + index;
       listeEvenements.push(e);
-      
     }
     return listeEvenements;
   }

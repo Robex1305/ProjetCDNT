@@ -19,11 +19,15 @@ export class TabEvenementsPage {
 
   getEvenements(){
     let listeEvenements = new Array<Evenement>();
-    for (let index = 0; index < 10; index++) {
+    for (let index = 0; index < 6; index++) {
       let e = new Evenement();
+      e._dateEvenement = new Date(2019,9, index, (6+index), 30);
+      let geoloc = new Geolocalisation();
+      geoloc.libelle = "Lille"
+      e.geolocalisation = geoloc;
+      console.log(e.dateEvenementFormate);
       e.titre = "Evenement n° " + index;
       listeEvenements.push(e);
-      
     }
     return listeEvenements;
   }

@@ -8,7 +8,7 @@ export class Evenement {
     public description : string;
     public nb_participants : number;
     public dateCreation : Date;
-    public _dateEvenement : Date;
+    public dateEvenement : Date;
     public dateEvenementFormate : string;
     public heureEvenementFormate : string;
     public statut : EnumStatut;
@@ -19,22 +19,23 @@ export class Evenement {
     public limiteParticipants : number;
     public image : string;
 
-    public set dateEvenement(date : Date){
-        this._dateEvenement = date;
+    public set _dateEvenement(date : Date){
+        this.dateEvenement = date;
+        console.log("Formate");
         this.formateDateEtHeure();
     }
 
     public constructor() {}
 
     public formateDateEtHeure(){
-        this.dateEvenementFormate = this._dateEvenement.toLocaleDateString();
+        this.dateEvenementFormate = this.dateEvenement.toLocaleDateString();
 
-        let heures = this._dateEvenement.getHours().toString();
+        let heures = this.dateEvenement.getHours().toString();
         if(heures.length < 2){
             heures = "0" + heures;
         }
 
-        let minutes = this._dateEvenement.getMinutes().toString();
+        let minutes = this.dateEvenement.getMinutes().toString();
         if(minutes.length < 2){
             minutes = "0" + minutes;
         }
