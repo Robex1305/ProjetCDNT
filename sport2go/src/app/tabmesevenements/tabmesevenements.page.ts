@@ -1,7 +1,18 @@
-import { Component } from '@angular/core';
-import { Evenement } from 'src/models/classes/Evenement';
-import { NavController } from '@ionic/angular';
-import { NavigationExtras } from '@angular/router';
+import {
+  Component
+} from '@angular/core';
+import {
+  Evenement
+} from 'src/models/classes/Evenement';
+import {
+  NavController
+} from '@ionic/angular';
+import {
+  NavigationExtras
+} from '@angular/router';
+import {
+  Geolocalisation
+} from 'src/models/classes/Geolocalisation';
 
 @Component({
   selector: 'app-tabmesevenements',
@@ -9,24 +20,40 @@ import { NavigationExtras } from '@angular/router';
   styleUrls: ['tabmesevenements.page.scss']
 })
 export class TabmesevenementsPage {
-  listEvenements: Array<Evenement>;
-  public constructor(public navController : NavController) {
-  }
+  listEvenements: Array < Evenement > ;
+  public constructor(public navController: NavController) {}
 
-  getEvenements(){
-    let listeEvenements = new Array<Evenement>();
+  getEvenements() {
+    let listeEvenements = new Array < Evenement > ();
     for (let index = 2; index < 5; index++) {
       let e = new Evenement();
-      e._dateEvenement = new Date(2019,9, index, (6+index), 30);
-      console.log(e.dateEvenementFormate);
+      e._dateEvenement = new Date(2019, 8, 1 - index, (6 + index), 30);
+      let geoloc = new Geolocalisation();
+      geoloc.libelle = "Lille"
+      e.geolocalisation = geoloc;
+      e.nb_participants = Math.pow(9, index);
       e.titre = "Evenement n° " + index;
+      e.isTermine;
       listeEvenements.push(e);
     }
     return listeEvenements;
   }
-  
-  onCardClick(evenement : Evenement){
-    let navigationExtras : NavigationExtras = {
+
+  getEvenementsTermine() {
+    let listeEvenements = new Array < Evenement > ();
+    let e = new Evenement();
+    e._dateEvenement = new Date(2019, 8, 11, 13, 30);
+    let geoloc = new Geolocalisation();
+    geoloc.libelle = "Lille"
+    e.geolocalisation = geoloc;
+    e.nb_participants = 2846;
+    e.titre = "Evenement terminé";
+    listeEvenements.push(e);
+    return listeEvenements;
+  }
+
+  onCardClick(evenement: Evenement) {
+    let navigationExtras: NavigationExtras = {
       queryParams: {
         evenement: JSON.stringify(evenement)
       }
@@ -34,7 +61,7 @@ export class TabmesevenementsPage {
     this.navController.navigateForward(['page-details-evenement'], navigationExtras);
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.listEvenements = this.getEvenements();
   }
 }

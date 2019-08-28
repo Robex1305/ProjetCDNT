@@ -3,18 +3,40 @@
 
 
 <ion-content>
-  <ion-card *ngFor="let event of listEvenements" type="button" (click)="onCardClick(event)">
-    <ion-card-header>
-      {{event.titre}}
-    </ion-card-header>
-
-    <ion-card-content>
-      <!-- {{event.geolocalisation.libelle}}
-                    <br>
-                    {{event.dateEvenementFormate}}
-                    <br>
-                    {{event.heureEvenementFormate}} -->
-    </ion-card-content>
+  <ion-card *ngFor="let event of listEvenements">
+      <ion-card-header [color]="event.color">
+          <ion-row style="height: auto;">
+    
+            <ion-col style="vertical-align: middle;" >
+              {{event.titre}}
+            </ion-col>
+    
+            <ion-col>
+                <ion-icon name="{{event.icon}}" style="margin-left: 80%; height: 1.2rem; width: 1.2rem; position: relative"></ion-icon>
+            </ion-col>
+    
+          </ion-row>
+    
+        </ion-card-header>
+    
+        <ion-card-content type="button" (click)="onCardClick(event)">
+          <h3>
+            <ion-icon name="calendar"></ion-icon>
+            {{event.dateEvenementFormate}}
+          </h3>
+    
+    
+          <h3>
+            <ion-icon name="clock"></ion-icon>
+            {{event.heureEvenementFormate}}
+          </h3>
+    
+    
+          <h3>
+            <ion-icon name="pin"></ion-icon>
+            {{event.geolocalisation.libelle}}
+          </h3>
+        </ion-card-content>
 
   </ion-card>
 </ion-content>

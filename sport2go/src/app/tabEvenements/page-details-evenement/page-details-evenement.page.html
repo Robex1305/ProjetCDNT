@@ -43,6 +43,14 @@
               {{evenement.geolocalisation.libelle}}
             
           </ion-col>
+
+          <ion-col>
+            <h4>
+              <ion-icon name="walk"></ion-icon>
+            </h4>
+              {{evenement.nb_participants}}
+            
+          </ion-col>
      </ion-row>
 
      <ion-row>
@@ -67,8 +75,8 @@
   </ion-grid>
 </ion-content>
 
-<ion-footer>
-    <ion-button expand="full">
+<ion-footer  style="height: 8%;">
+    <ion-button expand="full" style="height: 100%;">
         Participer 
         &nbsp;
         <ion-icon name="add"></ion-icon>
