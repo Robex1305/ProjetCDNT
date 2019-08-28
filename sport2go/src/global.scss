@@ -26,18 +26,13 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 ion-card {
-    --background: rgb(230, 230, 230) !important;
     --color: rgb(20,20,20) !important;
 }
 
-ion-content{
-    --background: rgb(50,50,50);
+html {
+    font-size: 1.2em;
 }
 
 ion-tabs{
-    --background: rgb(50,50,50);
-}
-
-ion-tab-bar{
-    --background: rgb(60,60,60);
+    --background: rgb(240,240,240);
 }

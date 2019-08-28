@@ -12,18 +12,21 @@ import { NavigationExtras } from '@angular/router';
 })
 export class TabEvenementsPage {
   public listEvenements : Array<Evenement>;
-  
 
   public constructor(public navController : NavController) {
   }
 
   getEvenements(){
     let listeEvenements = new Array<Evenement>();
-    for (let index = 0; index < 10; index++) {
+    for (let index = 0; index < 6; index++) {
       let e = new Evenement();
+      e._dateEvenement = new Date(2019, 8, 1 - index, (6 + index), 30);
+      let geoloc = new Geolocalisation();
+      geoloc.libelle = "Lille"
+      e.geolocalisation = geoloc;
+      e.nb_participants = Math.pow(9, index);
       e.titre = "Evenement n° " + index;
       listeEvenements.push(e);
-      
     }
     return listeEvenements;
   }
