@@ -11,24 +11,24 @@ import { NavController, ToastController, IonDatetime, Events } from '@ionic/angu
 })
 export class PageNouvelEvenementPage implements OnInit {
   public evenement : Evenement;
+  public dateEvenement : Date;
   public heureEvenement : Date;
   toast : any;
 
   constructor(public navController : NavController, public events : Events, public toastController: ToastController) {
-
+    this.evenement = new Evenement();
   }
 
   ngOnInit() {
+    console.log("event init");
     this.evenement = new Evenement();
   }
 
   public createEvent(){
     this.navController.pop();
-    console.log("HEURE EVENT: " + this.heureEvenement.getHours);
-    this.evenement.dateEvenement.setHours(this.heureEvenement.getHours());
-    this.evenement.dateEvenement.setMinutes(this.heureEvenement.getMinutes());
+    this.evenement.setDateEvenement(this.dateEvenement,this.heureEvenement);
+    
     this.events.publish("nouvelEvenement:created",this.evenement);
-    console.log("Evenement cree");
     this.toast = this.toastController.create({
       message: 'Evenement créé!',
       duration: 2000

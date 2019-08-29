@@ -28,6 +28,7 @@ export class Evenement {
     }
 
     public get icon(){
+      if(this.titre != null){
         if(this.titre.endsWith("0")){
             return "add";
           }else if(this.titre.endsWith("1")){
@@ -41,9 +42,11 @@ export class Evenement {
           }else if(this.titre.endsWith("5")){
             return "add";
           }
+        }
     }
 
     public get color(){
+      if(this.titre != null){
         if(this.titre.endsWith("0")){
           return "secondary";
         }else if(this.titre.endsWith("1")){
@@ -55,24 +58,25 @@ export class Evenement {
         }else if(this.isTermine){
           return "light";
         }
-      }
+      } 
+      return "";
+    }
 
-      public get _dateEvenement(){
-        console.log("date getté");
-          this.formateDateEtHeure();
-          this.isTermine = false;
-          let today = new Date()
-          if(today.getTime() > this.dateEvenement.getTime()){
-              this.isTermine = true;    
-          }
+    public setDateEvenement(date:Date, heure:Date){
+      date = new Date(date);
+      heure = new Date(heure);
+      this.dateEvenement = date;
+      this.dateEvenement = this.dateEvenement;
+      this.dateEvenement.setHours(heure.getHours());
+      this.dateEvenement.setMinutes(heure.getMinutes());
+      this._dateEvenement = this.dateEvenement;
+    }
 
-          return this.dateEvenement
-      }
-
-    public set _dateEvenement(date : Date){
-      console.log("date setté");
+    public set _dateEvenement(date: Date){
+      console.log(date);
         this.dateEvenement = date;
         this.formateDateEtHeure();
+
         this.isTermine = false;
         let today = new Date()
         if(today.getTime() > this.dateEvenement.getTime()){
@@ -82,19 +86,11 @@ export class Evenement {
 
 
     public formateDateEtHeure(){
+        this.dateEvenement = new Date(this.dateEvenement);
+        
         this.dateEvenementFormate = this.dateEvenement.toLocaleDateString();
-
-        let heures = this.dateEvenement.getHours().toString();
-        if(heures.length < 2){
-            heures = "0" + heures;
-        }
-
-        let minutes = this.dateEvenement.getMinutes().toString();
-        if(minutes.length < 2){
-            minutes = "0" + minutes;
-        }
-
-        this.heureEvenementFormate = heures + ":" + minutes;
+        this.heureEvenementFormate = this.dateEvenement.getHours() + ":" + this.dateEvenement.getMinutes();
+        console.log(this.heureEvenementFormate)
     }
 
 

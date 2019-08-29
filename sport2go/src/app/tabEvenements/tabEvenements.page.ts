@@ -4,6 +4,7 @@ import { Evenement } from '../../models/classes/Evenement'
 import { Geolocalisation } from 'src/models/classes/Geolocalisation';
 import { NavController, Events } from '@ionic/angular';
 import { NavigationExtras, ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common'
 
 @Component({
   selector: 'app-tabEvenements',
@@ -23,13 +24,12 @@ export class TabEvenementsPage {
   public ngOnInit(){
     this.listEvenements = new Array<Evenement>();
     this.getEvenements();
-    console.log("INITIALISÉ");
   }
 
   getEvenements(){
     for (let index = 0; index < 6; index++) {
       let e = new Evenement();
-      e._dateEvenement = new Date(2019, 8, 1 - index, (6 + index), 30);
+      e._dateEvenement = new Date(2019, 8, 1 - index, (7 + index), 30);
       let geoloc = new Geolocalisation();
       geoloc.libelle = "Lille"
       e.geolocalisation = geoloc;
@@ -38,6 +38,7 @@ export class TabEvenementsPage {
       this.listEvenements.push(e);
     }
   }
+
   
   onCardClick(evenement : Evenement){
     let navigationExtras : NavigationExtras = {
