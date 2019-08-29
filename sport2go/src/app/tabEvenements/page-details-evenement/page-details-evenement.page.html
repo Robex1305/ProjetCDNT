@@ -49,6 +49,7 @@
               <ion-icon name="walk"></ion-icon>
             </h4>
               {{evenement.nb_participants}}
+              <ion-label *ngIf="evenement.nb_participantsMax > 0"> / {{evenement.nb_participantsMax}}</ion-label>
             
           </ion-col>
      </ion-row>
@@ -62,7 +63,8 @@
      <ion-row>
        <ion-col>
             <h3><ion-icon name="information-circle"></ion-icon> Description:</h3><br>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis atque rem dicta eum quasi, laborum quod. Totam porro quae, laudantium culpa temporibus rerum, mollitia harum, maiores reiciendis magnam hic ratione?
+            <ion-label *ngIf="evenement.description == null || evenement.description == ''">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis atque rem dicta eum quasi, laborum quod. Totam porro quae, laudantium culpa temporibus rerum, mollitia harum, maiores reiciendis magnam hic ratione?</ion-label>
+            <ion-label *ngIf="evenement.description != null || evenement.description != ''">{{evenement.description}}</ion-label>
        </ion-col>
      </ion-row>
 

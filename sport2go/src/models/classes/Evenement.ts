@@ -7,6 +7,7 @@ export class Evenement {
     public titre : string;
     public description : string;
     public nb_participants : number;
+    public nb_participantsMax : number;
     public dateCreation : Date;
     public dateEvenement : Date;
     public dateEvenementFormate : string;
@@ -19,6 +20,12 @@ export class Evenement {
     public limiteParticipants : number;
     public image : string;
     public isTermine : boolean;
+
+    public constructor() {
+      this.adresse = new Adresse();
+      this.geolocalisation = new Geolocalisation();  
+      this.nb_participants = 0;
+    }
 
     public get icon(){
         if(this.titre.endsWith("0")){
@@ -50,7 +57,20 @@ export class Evenement {
         }
       }
 
+      public get _dateEvenement(){
+        console.log("date getté");
+          this.formateDateEtHeure();
+          this.isTermine = false;
+          let today = new Date()
+          if(today.getTime() > this.dateEvenement.getTime()){
+              this.isTermine = true;    
+          }
+
+          return this.dateEvenement
+      }
+
     public set _dateEvenement(date : Date){
+      console.log("date setté");
         this.dateEvenement = date;
         this.formateDateEtHeure();
         this.isTermine = false;
@@ -60,7 +80,6 @@ export class Evenement {
         }
     }
 
-    public constructor() {}
 
     public formateDateEtHeure(){
         this.dateEvenementFormate = this.dateEvenement.toLocaleDateString();

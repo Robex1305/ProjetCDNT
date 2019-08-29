@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Créer un évenement</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="createEvent()">
+    <ion-item>
+      <ion-label>Titre</ion-label>
+      <ion-input type="text" aria-setsize="32" aria-placeholder="Saisissez le titre de l'événement..." [(ngModel)]="evenement.titre" name="title"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Description</ion-label>
+      <ion-textarea [(ngModel)]="evenement.description" aria-placeholder="Saisissez la description de l'événement..." name="description"></ion-textarea>
+    </ion-item>
+<!-- 
+    <ion-item>
+      <ion-label>Sport</ion-label>
+      <ion-textarea [(ngModel)]="event.description" aria-placeholder="Saisissez la description de l'événement..." name="description"></ion-textarea>
+    </ion-item> -->
+
+    <ion-item>
+      <ion-label>Nombre de participants max (0 si illimité)</ion-label>
+      <ion-input [(ngModel)]="evenement.nb_participantsMax" aria-valuenow="0" type="number" name="nombreParticipantsMax"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Lieu de l'événement</ion-label>
+      <ion-input [(ngModel)]="evenement.geolocalisation.libelle" aria-placeholder="Saisissez le lieu de l'événement..." name="lieu"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Date de l'événement</ion-label>
+      <ion-datetime [(ngModel)]="evenement.dateEvenement" displayFormat="DD/MM/YYYY" placeholder="Saisissez la date de l'événement..." name="dateEvenement"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Heure de l'événement</ion-label>
+      <ion-datetime [(ngModel)]="heureEvenement" displayFormat="HH:mm" placeholder="Saisissez l'heure de l'événement..." name="heureEvenement"></ion-datetime>
+    </ion-item>
+
+    <button ion-button type="submit" block>Créer <ion-icon name="add"></ion-icon></button>
+  </form>
+</ion-content>
