@@ -13,7 +13,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../tabmesevenements/tabmesevenements.module').then(m => m.TabmesevenementsPageModule)
+              import('../tabEvenements/tabmesevenements/tabmesevenements.module').then(m => m.TabmesevenementsPageModule)
           }
         ]
       },
@@ -24,16 +24,6 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../tabEvenements/tabEvenements.module').then(m => m.TabEvenementsPageModule)
-          }
-        ]
-      },
-      {
-        path: 'tabnouvelevenement',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../tabnouvelevenement/tabnouvelevenement.module').then(m => m.TabnouvelevenementPageModule)
           }
         ]
       },

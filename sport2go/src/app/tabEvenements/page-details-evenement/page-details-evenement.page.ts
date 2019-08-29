@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Evenement } from 'src/models/classes/Evenement';
 import { ActivatedRoute } from '@angular/router';
+import { TabEvenementsPage } from '../tabEvenements.page';
 
 @Component({
   selector: 'app-page-details-evenement',
@@ -18,7 +19,7 @@ export class PageDetailsEvenementPage implements OnInit {
   }
 
   ngOnInit() {
-
+    
   }
 
 }

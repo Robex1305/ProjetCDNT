@@ -1,9 +1,16 @@
 import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TabEvenementsPage } from './tabEvenements.page';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: TabEvenementsPage
+  }
+];
 
 @NgModule({
   imports: [
@@ -14,4 +21,6 @@ import { TabEvenementsPage } from './tabEvenements.page';
   ],
   declarations: [TabEvenementsPage]
 })
+
+
 export class TabEvenementsPageModule {}
