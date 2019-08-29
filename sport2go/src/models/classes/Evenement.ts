@@ -62,13 +62,9 @@ export class Evenement {
       return "";
     }
 
-    public setDateEvenement(date:Date, heure:Date){
+    public setDateEvenement(date:Date){
       date = new Date(date);
-      heure = new Date(heure);
       this.dateEvenement = date;
-      this.dateEvenement = this.dateEvenement;
-      this.dateEvenement.setHours(heure.getHours());
-      this.dateEvenement.setMinutes(heure.getMinutes());
       this._dateEvenement = this.dateEvenement;
     }
 
