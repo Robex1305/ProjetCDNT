@@ -5,6 +5,8 @@
       [icon]="buttonIcon"
       slot="start">
       </ion-back-button>
+
+      <ion-icon name="trash" slot="end" (click)="delete()" *ngIf="evenement.demo_isAdminMode"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
