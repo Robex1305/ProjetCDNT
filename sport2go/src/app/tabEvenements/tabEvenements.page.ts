@@ -5,6 +5,7 @@ import { Geolocalisation } from 'src/models/classes/Geolocalisation';
 import { NavController, Events } from '@ionic/angular';
 import { NavigationExtras, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common'
+import { TabmesevenementsPage } from './tabmesevenements/tabmesevenements.page';
 
 @Component({
   selector: 'app-tabEvenements',
@@ -13,12 +14,29 @@ import { DatePipe } from '@angular/common'
 })
 export class TabEvenementsPage {
   public listEvenements : Array<Evenement>;
-  public listEvenementsNouveau : Array<Evenement>;
+  public tmp_idSuite = 0;
+  
   public constructor(public navController : NavController, public events: Events) {
     events.subscribe('nouvelEvenement:created', (evenement) => {
-      console.log('Evenement ' + evenement + ' recu');
+      evenement.evenementId = this._tmp_idSuite;
       this.listEvenements.push(evenement);
+      this.trier();
     });
+
+    events.subscribe('evenement:delete', (evenement) => {
+      this.listEvenements = this.listEvenements.filter(e => e.evenementId != evenement.evenementId);
+    });
+  }
+
+  public get _tmp_idSuite(){
+    this.tmp_idSuite = this.tmp_idSuite + 1;
+    return this.tmp_idSuite;
+  }
+
+  public trier(){
+    this.listEvenements.sort(function(a,b){
+      return b.dateEvenement.getTime() - a.dateEvenement.getTime();
+    })
   }
 
   public ngOnInit(){
@@ -30,6 +48,7 @@ export class TabEvenementsPage {
     for (let index = 0; index < 6; index++) {
       let e = new Evenement();
       e._dateEvenement = new Date(2019, 8, 1 - index, (7 + index), 30);
+      e.evenementId = this._tmp_idSuite;
       let geoloc = new Geolocalisation();
       geoloc.libelle = "Lille"
       e.geolocalisation = geoloc;
