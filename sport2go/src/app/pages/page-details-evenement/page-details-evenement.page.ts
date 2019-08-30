@@ -1,22 +1,8 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-import {
-  Evenement
-} from 'src/models/classes/Evenement';
-import {
-  ActivatedRoute
-} from '@angular/router';
-import {
-  TabEvenementsPage
-} from '../../tabEvenements/tabEvenements.page';
-import {
-  Events,
-  NavController,
-  ToastController,
-  AlertController
-} from '@ionic/angular';
+import {Component,OnInit} from '@angular/core';
+import {Evenement} from 'src/models/classes/Evenement';
+import {ActivatedRoute} from '@angular/router';
+import {TabEvenementsPage} from '../../tabEvenements/tabEvenements.page';
+import {Events,NavController,ToastController,AlertController} from '@ionic/angular';
 
 @Component({
   selector: 'app-page-details-evenement',
