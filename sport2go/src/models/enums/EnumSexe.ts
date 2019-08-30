@@ -1,4 +1,4 @@
-enum EnumSexe{
+export enum EnumSexe{
     HOMME = "Homme",
     FEMME = "Femme",
     INCONNU = "Inconnu",

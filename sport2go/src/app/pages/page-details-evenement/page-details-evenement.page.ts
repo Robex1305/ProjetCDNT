@@ -14,7 +14,7 @@ export class PageDetailsEvenementPage implements OnInit {
   public evenement: Evenement;
   toast: any;
 
-  public constructor(public navControler: NavController, private route: ActivatedRoute, public events: Events, public toastController: ToastController, public alertCtrl: AlertController) {
+  public constructor(public navController: NavController, private route: ActivatedRoute, public events: Events, public toastController: ToastController, public alertCtrl: AlertController) {
     this.route.queryParams.subscribe(params => {
       this.evenement = JSON.parse(params["evenement"])
     })
@@ -44,7 +44,7 @@ export class PageDetailsEvenementPage implements OnInit {
               console.log(toastData);
               toastData.present();
             });
-            this.navControler.pop();
+            this.navController.pop();
           }
         }
       ]
