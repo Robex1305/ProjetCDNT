@@ -10,7 +10,7 @@ import {
 } from '@angular/router';
 import {
   TabEvenementsPage
-} from '../tabEvenements.page';
+} from '../../tabEvenements/tabEvenements.page';
 import {
   Events,
   NavController,
