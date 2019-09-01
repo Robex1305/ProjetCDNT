@@ -38,12 +38,12 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'tab2',
+        path: 'tabsocial',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+              import('../tabsocial/tabsocial.module').then(m => m.TabsocialPageModule)
           }
         ]
       },

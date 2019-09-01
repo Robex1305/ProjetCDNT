@@ -1,0 +1,91 @@
+  <ion-tabs>
+    <ion-tab-bar slot="top">
+      <ion-tab-button tab="main">
+        <ion-icon name="calendar"></ion-icon>
+        <ion-label>Social</ion-label>
+        <ion-badge>6</ion-badge>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="finder">
+        <ion-icon name="contacts"></ion-icon>
+        <ion-label>Trouver un partenaire</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+
+  <ion-content>
+    <br><br><br>
+    <ion-searchbar value="Rechercher un utilisateur/groupe"></ion-searchbar>
+    <h3 class="ion-padding-start">Vos groupes</h3>
+    <ion-list>
+      <ion-item *ngFor="let group of groups_index">
+        <ion-avatar slot="start">
+          <img src="http://7wallpapers.net/wp-content/uploads/2016/05/20_Panda.jpg">
+        </ion-avatar>
+          <ion-label>
+            <h3>{{group}}</h3>
+            <p>
+              Sed ut perspiciatis unde omnis
+            </p>
+            <p>
+              Inventore veritatis
+            </p>
+          </ion-label>
+      </ion-item>
+    </ion-list>
+    <div *ngIf="!groups_index.length > 0">
+        <ion-item *ngFor="let item of [1,2,3,4]">
+          <ion-avatar slot="start">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-avatar>
+          <ion-label id="skeleton">
+            <h3>
+                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+            </h3>
+            <p>
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </p>
+            <p>
+              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            </p>
+          </ion-label>
+        </ion-item>
+      </div>
+
+    <h3 class="ion-padding-start">Recommandations</h3>
+    <ion-list>
+        <ion-item *ngFor="let group of groups_recommendations">
+          <ion-avatar slot="start">
+            <img src="http://7wallpapers.net/wp-content/uploads/2016/05/20_Panda.jpg">
+          </ion-avatar>
+            <ion-label>
+              <h3>{{group}}</h3>
+              <p>
+                Sed ut perspiciatis unde omnis
+              </p>
+              <p>
+                Inventore veritatis
+              </p>
+            </ion-label>
+        </ion-item>
+      </ion-list>
+      <div *ngIf="!groups_recommendations.length > 0">
+          <ion-item *ngFor="let item of [1,2]">
+            <ion-avatar slot="start">
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-avatar>
+            <ion-label id="skeleton">
+              <h3>
+                  <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+              </h3>
+              <p>
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+        </div>
+
+  </ion-content>
