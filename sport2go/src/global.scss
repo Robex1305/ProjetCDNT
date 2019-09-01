@@ -26,11 +26,12 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 ion-card {
-    --color: rgb(20,20,20) !important;
+    
 }
 
 html {
     font-size: 1.2em;
+    --color: #303030 !important;
 }
 
 ion-tabs{
@@ -39,6 +40,17 @@ ion-tabs{
 
 .input{
     font-size: 80%;
-    --background: linear-gradient(#ffffff, #fdfdfd);
-    border-bottom: solid 1px #f0f0f0
+    --background: linear-gradient(#ffffff,#ffffff,#ffffff,#fbfbfb);
+    border-bottom: solid 1px #f0f0ff;
+    border-radius: 2px;
+
+    --padding-end: 2% 2% 2% 2%;
+  }
+
+  form{
+      padding:2% 5% 2% 5%;
+  }
+
+  .toast{
+      text-align: center;
   }

@@ -10,9 +10,10 @@ export class Utilisateur{
     public nom : string;
     public prenom : string;
     public date_naissance : Date;
-    public sexe : EnumSexe;
+    public sexe : string;
     public pseudo : string;
-    public image : String;
+    public profilePicture : string;
+    public coverPicture : string;
     public conversationsPrive : Array<ConversationSimple>;
     public conversationsGroupe : Array<ConversationGroupe>;
     public parametre : Parametre;

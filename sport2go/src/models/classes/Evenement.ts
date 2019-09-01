@@ -20,6 +20,7 @@ export class Evenement {
     public limiteParticipants : number;
     public image : string;
     public isTermine : boolean;
+    public demo_isAdminMode = false;
 
     public constructor() {
       this.adresse = new Adresse();
@@ -57,6 +58,8 @@ export class Evenement {
           return "success";
         }else if(this.isTermine){
           return "light";
+        }else if(!this.isTermine){
+          return "secondary";
         }
       } 
       return "";
@@ -69,7 +72,6 @@ export class Evenement {
     }
 
     public set _dateEvenement(date: Date){
-      console.log(date);
         this.dateEvenement = date;
         this.formateDateEtHeure();
 
@@ -85,8 +87,16 @@ export class Evenement {
         this.dateEvenement = new Date(this.dateEvenement);
         
         this.dateEvenementFormate = this.dateEvenement.toLocaleDateString();
-        this.heureEvenementFormate = this.dateEvenement.getHours() + ":" + this.dateEvenement.getMinutes();
-        console.log(this.heureEvenementFormate)
+        let heures = this.dateEvenement.getHours().toString() ;
+        let minutes = this.dateEvenement.getMinutes().toString();
+        if(heures.length <2){
+          
+          heures = "0" + heures;
+        }
+        if(minutes.length<2){
+          minutes = "0" + minutes;
+        }
+        this.heureEvenementFormate = heures + ":" + minutes;
     }
 
 

@@ -1,11 +1,11 @@
 import {
-  Component
+  Component, OnInit
 } from '@angular/core';
 import {
   Evenement
 } from 'src/models/classes/Evenement';
 import {
-  NavController
+  NavController, Events
 } from '@ionic/angular';
 import {
   NavigationExtras
@@ -14,17 +14,29 @@ import {
   Geolocalisation
 } from 'src/models/classes/Geolocalisation';
 
+
 @Component({
   selector: 'app-tabmesevenements',
   templateUrl: 'tabmesevenements.page.html',
   styleUrls: ['tabmesevenements.page.scss']
 })
-export class TabmesevenementsPage {
-  listEvenements: Array < Evenement > ;
-  public constructor(public navController: NavController) {}
+export class TabmesevenementsPage{
+
+  public listEvenements: Array<Evenement>;
+
+  public constructor(public navController: NavController, public events : Events) {
+    events.subscribe('nouvelEvenement:created', (evenement) => {
+      this.listEvenements.push(evenement);
+    });
+  }
+  
+
+  public ngOnInit(){
+    this.listEvenements = new Array<Evenement>();
+    this.getEvenements();
+  }
 
   getEvenements() {
-    let listeEvenements = new Array < Evenement > ();
     for (let index = 2; index < 5; index++) {
       let e = new Evenement();
       e._dateEvenement = new Date(2019, 8, 1 - index, (6 + index), 30);
@@ -34,9 +46,9 @@ export class TabmesevenementsPage {
       e.nb_participants = Math.pow(9, index);
       e.titre = "Evenement n° " + index;
       e.isTermine;
-      listeEvenements.push(e);
+      this.listEvenements.push(e);
     }
-    return listeEvenements;
+    return this.listEvenements;
   }
 
   getEvenementsTermine() {
@@ -61,7 +73,4 @@ export class TabmesevenementsPage {
     this.navController.navigateForward(['page-details-evenement'], navigationExtras);
   }
 
-  ionViewWillEnter() {
-    this.listEvenements = this.getEvenements();
-  }
 }
