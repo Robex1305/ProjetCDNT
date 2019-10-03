@@ -24,6 +24,10 @@ export class PageProfilPage{
 
 ionViewWillEnter(){
 
+  ///////////////////////////////////
+  //Bordel CSS (A revoir/optimiser)//
+  ///////////////////////////////////
+
   this.coverPicture = document.getElementById("coverPicture");
   this.coverPicture.setAttribute("style", "background-image: url('" + this.user.coverPicture + "');");
     
