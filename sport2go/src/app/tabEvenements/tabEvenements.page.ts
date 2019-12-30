@@ -54,7 +54,6 @@ export class TabEvenementsPage {
     this.getEvenements();
   }
 
-  //Génération en dur d'évenements
   getEvenements(){
     //Generation d'evenement a la volée pour la demo
     for (let index = 0; index < 6; index++) {
@@ -93,6 +92,5 @@ export class TabEvenementsPage {
   }
 
   ionViewWillEnter(){
-    
   }
 }
