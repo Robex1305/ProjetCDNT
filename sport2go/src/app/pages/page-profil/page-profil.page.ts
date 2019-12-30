@@ -35,7 +35,6 @@ ionViewWillEnter(){
   this.profilePicture.setAttribute("style", "background-image: url('" + this.user.profilePicture + "'); height: "+ pxProfileHeight + "px; margin-top: " + pxProfileMarginTopHeight + "px;");
 
   let pxProfileHeaderHeight = this.coverPicture.clientHeight + pxProfileHeight;
-  console.log(pxProfileHeaderHeight +"="+this.coverPicture.clientHeight+"+"+pxProfileHeight)
   this.profileHeader = document.getElementById("profileHeader");
   this.profileHeader.setAttribute("style", "width: 100%; height: " + pxProfileHeaderHeight + "px; background-color:white; position: fixed;")
 

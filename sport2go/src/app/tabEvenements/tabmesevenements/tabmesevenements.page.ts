@@ -24,7 +24,9 @@ export class TabmesevenementsPage{
 
   public listEvenements: Array<Evenement>;
 
+  //Ajout de listener a l'initialisation de la page
   public constructor(public navController: NavController, public events : Events) {
+    //Listener évenement créé: on l'ajoute a la liste
     events.subscribe('nouvelEvenement:created', (evenement) => {
       this.listEvenements.push(evenement);
     });
@@ -36,6 +38,8 @@ export class TabmesevenementsPage{
     this.getEvenements();
   }
 
+  
+  //Initialisation d'évenements en dur: mirroir de ce qui est généré dans tabEvenements.page.ts, on en selectionne que 3. TODO: a supprimer
   getEvenements() {
     for (let index = 2; index < 5; index++) {
       let e = new Evenement();
@@ -64,6 +68,8 @@ export class TabmesevenementsPage{
     return listeEvenements;
   }
 
+
+  //Listener de clic: navigation vers la page détail de l'évenement cliqué
   onCardClick(evenement: Evenement) {
     let navigationExtras: NavigationExtras = {
       queryParams: {
