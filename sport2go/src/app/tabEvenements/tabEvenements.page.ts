@@ -18,8 +18,7 @@ export class TabEvenementsPage {
   
   //Ajout de listener a l'initialisation de la page
   public constructor(public navController : NavController, public events: Events) {
-
-    //Listener de création d'évenement 
+    //Listener d'event "Nouvel evenement crée"
     events.subscribe('nouvelEvenement:created', (evenement) => {
       evenement.evenementId = this._tmp_idSuite;
       this.listEvenements.push(evenement);
@@ -29,12 +28,14 @@ export class TabEvenementsPage {
 
     //Listener de suppression d'évenement
     //TODO: a rework avec une vrai suppression en base
+    //Listener d'event "Evenement supprimé"
     events.subscribe('evenement:delete', (evenement) => {
       this.listEvenements = this.listEvenements.filter(e => e.evenementId != evenement.evenementId);
     });
   }
 
   //TODO: a supprimer lorsqu'on connectera l'appli a la BDD
+  //Gestion des ID pour la demo
   public get _tmp_idSuite(){
     this.tmp_idSuite = this.tmp_idSuite + 1;
     return this.tmp_idSuite;
@@ -55,6 +56,7 @@ export class TabEvenementsPage {
 
   //Génération en dur d'évenements
   getEvenements(){
+    //Generation d'evenement a la volée pour la demo
     for (let index = 0; index < 6; index++) {
       let e = new Evenement();
       e._dateEvenement = new Date(2019, 8, 1 - index, (7 + index), 30);
@@ -71,6 +73,7 @@ export class TabEvenementsPage {
   
   //Listener de clic: Navigation vers la page de détails de l'évenement
   onCardClick(evenement : Evenement){
+    //On passe en parametre (navigationExtras) du navController l'evenement
     let navigationExtras : NavigationExtras = {
       queryParams: {
         evenement: JSON.stringify(evenement)

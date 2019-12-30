@@ -9,35 +9,50 @@ import { NavController, ToastController, IonDatetime, Events, IonTextarea } from
   templateUrl: './page-nouvel-evenement.page.html',
   styleUrls: ['./page-nouvel-evenement.page.scss'],
 })
+
+/*
+  Controleur de la page ou on crée un nouvel évenement
+*/
 export class PageNouvelEvenementPage implements OnInit {
   public evenement : Evenement;
   public dateEvenement : Date;
   toast : any;
 
+  
+
   constructor(public navController : NavController, public events : Events, public toastController: ToastController) {
   }
 
+
+  /* Retourne la date dans 2 ans a partir d'aujourd'hui qui servira de date maximum pour le datePicker
+     afin d'éviter de se retrouver avec des événemenets le 27 Janvier 2599 */
   get maxDate(){
     let today = new Date();
     let year = (today.getFullYear() + 2).toString();
     return year;
   }
 
+  /* Retourne l'année minimum qui servira de date minimum pour le datePicker, afin
+     d'éviter de se retrouver avec des événemenets le 27 Janvier 1970 */
   get minDate(){
     let today = new Date();
     let year = today.getFullYear().toString();
     return year;
   }
 
+  /* Instanciation d'un nouvel évenement à l'initialisation de la page*/
   ngOnInit() {
     this.evenement = new Evenement();
   }
 
   public createEvent(){
     this.evenement.setDateEvenement(this.dateEvenement);
+    //On vérifie la validité des informations rentrées dans l'évenement
     let check = this.validationEvenement();
     if(check){
+      //On publie un event disant qu'un évenement a été créé (ex: subscirbe de la page Mes Evenements > met a jour la liste avec le nouvel evenement) 
       this.events.publish("nouvelEvenement:created",this.evenement);
+      //On ferme la page
       this.navController.pop();
     }
   }
