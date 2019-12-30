@@ -6,6 +6,10 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
+  {
+    path: '',
+    loadChildren: () => import('./tabsocial/tabsocial.module').then(m => m.TabsocialPageModule)
+  },
   { path: 'page-details-evenement', loadChildren: './pages/page-details-evenement/page-details-evenement.module#PageDetailsEvenementPageModule' },
   { path: 'page-nouvel-evenement', loadChildren: './pages/page-nouvel-evenement/page-nouvel-evenement.module#PageNouvelEvenementPageModule' },
   { path: 'tabEvenements', loadChildren: './tabEvenements/tabEvenements.module#TabEvenementsPageModule' },
@@ -13,6 +17,10 @@ const routes: Routes = [
   { path: 'page-log-in', loadChildren: './pages/connexion/page-log-in/page-log-in.module#PageLogInPageModule' },
   { path: 'page-register', loadChildren: './pages/connexion/page-register/page-register.module#PageRegisterPageModule' },
   { path: 'page-profil', loadChildren: './pages/page-profil/page-profil.module#PageProfilPageModule' },
+  { path: 'tabsocial', loadChildren: './tabsocial/tabsocial.module#TabsocialPageModule' },
+  { path: 'main', loadChildren: './pages/social/main/main.module#MainPageModule' },
+  { path: 'finder', loadChildren: './pages/social/finder/finder.module#FinderPageModule' },
+
 
 
 ];
