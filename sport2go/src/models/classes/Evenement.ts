@@ -3,7 +3,7 @@ import { Adresse } from './Adresse';
 import { Utilisateur } from './Utilisateur';
 
 export class Evenement {
-    public evenementId : number;
+    public id : number;
     public titre : string;
     public description : string;
     public nb_participants : number;

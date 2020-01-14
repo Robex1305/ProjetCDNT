@@ -6,6 +6,7 @@ import { NavController, Events } from '@ionic/angular';
 import { NavigationExtras, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common'
 import { TabmesevenementsPage } from './tabmesevenements/tabmesevenements.page';
+import { HttpClient, HttpHeaderResponse, HttpHeaders } from "@angular/common/http"
 
 @Component({
   selector: 'app-tabEvenements',
@@ -17,10 +18,9 @@ export class TabEvenementsPage {
   public tmp_idSuite = 0;
   
   //Ajout de listener a l'initialisation de la page
-  public constructor(public navController : NavController, public events: Events) {
+  public constructor(public navController : NavController, public events: Events, public httpClient : HttpClient) {
     //Listener d'event "Nouvel evenement crée"
     events.subscribe('nouvelEvenement:created', (evenement) => {
-      evenement.evenementId = this._tmp_idSuite;
       this.listEvenements.push(evenement);
       this.trier();
     });
@@ -30,15 +30,8 @@ export class TabEvenementsPage {
     //TODO: a rework avec une vrai suppression en base
     //Listener d'event "Evenement supprimé"
     events.subscribe('evenement:delete', (evenement) => {
-      this.listEvenements = this.listEvenements.filter(e => e.evenementId != evenement.evenementId);
+      this.listEvenements = this.listEvenements.filter(e => e.id != evenement.evenementId);
     });
-  }
-
-  //TODO: a supprimer lorsqu'on connectera l'appli a la BDD
-  //Gestion des ID pour la demo
-  public get _tmp_idSuite(){
-    this.tmp_idSuite = this.tmp_idSuite + 1;
-    return this.tmp_idSuite;
   }
 
   //Trie les évenement selon la date
@@ -48,24 +41,25 @@ export class TabEvenementsPage {
     })
   }
 
-  //Chargement des évenements
   public ngOnInit(){
     this.listEvenements = new Array<Evenement>();
     this.getEvenements();
   }
 
   getEvenements(){
-    //Generation d'evenement a la volée pour la demo
-    for (let index = 0; index < 6; index++) {
-      let e = new Evenement();
-      e._dateEvenement = new Date(2019, 8, 1 - index, (7 + index), 30);
-      e.evenementId = this._tmp_idSuite;
-      let geoloc = new Geolocalisation();
-      geoloc.libelle = "Lille"
-      e.geolocalisation = geoloc;
-      e.nb_participants = Math.pow(9, index);
-      e.titre = "Evenement n° " + index;
-      this.listEvenements.push(e);
+    {
+      let httpHeaders = new HttpHeaders();
+      httpHeaders.set("Accept","application/json");
+      httpHeaders.set("Access-Control-Allow-Origin","*")
+
+      this.httpClient.get("http://localhost:8000/evenements/readAll", {headers: httpHeaders}).subscribe((evenement) => {
+        if(evenement != null){
+          console.log(evenement);
+          console.log(<Evenement> evenement);
+          this.listEvenements.push(<Evenement> evenement);
+        }
+      });
+     
     }
   }
 

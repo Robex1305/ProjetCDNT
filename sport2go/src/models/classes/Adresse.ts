@@ -1,10 +1,10 @@
 export class Adresse{
-    public adresseId : number;
+    public id : number;
     public rue : string;
-    public cp : number;
+    public codePostal : number;
     public ville : string;
     public departement : string;
-    public pays : EnumPays;
+    public pays : string;
 
     public constructor() {}
 }

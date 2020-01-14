@@ -14,6 +14,7 @@ import {
   Geolocalisation
 } from 'src/models/classes/Geolocalisation';
 
+import { HttpClient } from '@angular/common/http'
 
 @Component({
   selector: 'app-tabmesevenements',
@@ -25,7 +26,7 @@ export class TabmesevenementsPage{
   public listEvenements: Array<Evenement>;
 
   //Ajout de listener a l'initialisation de la page
-  public constructor(public navController: NavController, public events : Events) {
+  public constructor(public navController: NavController, public events : Events, public httpClient : HttpClient) {
     //Listener évenement créé: on l'ajoute a la liste
     events.subscribe('nouvelEvenement:created', (evenement) => {
       this.listEvenements.push(evenement);
@@ -41,18 +42,7 @@ export class TabmesevenementsPage{
   
   //Initialisation d'évenements en dur: mirroir de ce qui est généré dans tabEvenements.page.ts, on en selectionne que 3. TODO: a supprimer
   getEvenements() {
-    for (let index = 2; index < 5; index++) {
-      let e = new Evenement();
-      e._dateEvenement = new Date(2019, 8, 1 - index, (6 + index), 30);
-      let geoloc = new Geolocalisation();
-      geoloc.libelle = "Lille"
-      e.geolocalisation = geoloc;
-      e.nb_participants = Math.pow(9, index);
-      e.titre = "Evenement n° " + index;
-      e.isTermine;
-      this.listEvenements.push(e);
-    }
-    return this.listEvenements;
+    
   }
 
   getEvenementsTermine() {

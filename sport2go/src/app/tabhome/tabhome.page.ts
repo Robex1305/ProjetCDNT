@@ -11,6 +11,7 @@ import { EnumSexe } from 'src/models/enums/EnumSexe';
 })
 export class TabhomePage implements OnInit {
   public user : Utilisateur;
+  public hello : String; 
 
   constructor(public navController:NavController) { }
 
