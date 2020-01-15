@@ -6,7 +6,8 @@ import { NavController, Events } from '@ionic/angular';
 import { NavigationExtras, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common'
 import { TabmesevenementsPage } from './tabmesevenements/tabmesevenements.page';
-import { HttpClient, HttpHeaderResponse, HttpHeaders } from "@angular/common/http"
+import { HttpClient, HttpHeaderResponse, HttpHeaders, HttpResponse } from "@angular/common/http"
+import { listenerCount } from 'cluster';
 
 @Component({
   selector: 'app-tabEvenements',
@@ -50,14 +51,14 @@ export class TabEvenementsPage {
     {
       let httpHeaders = new HttpHeaders();
       httpHeaders.set("Accept","application/json");
-      httpHeaders.set("Access-Control-Allow-Origin","*")
 
-      this.httpClient.get("http://localhost:8000/evenements/readAll", {headers: httpHeaders}).subscribe((evenement) => {
-        if(evenement != null){
-          console.log(evenement);
-          console.log(<Evenement> evenement);
-          this.listEvenements.push(<Evenement> evenement);
-        }
+      this.httpClient.get("http://localhost:8000/evenements/readAll", {headers: httpHeaders}).subscribe((evenements) =>{
+        let received =  <Evenement[]> evenements;
+        
+        received.forEach(evenement => {
+          this.listEvenements.push(evenement);
+        });
+  
       });
      
     }
