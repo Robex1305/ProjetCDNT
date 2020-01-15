@@ -3,6 +3,10 @@ import { FormGroup } from '@angular/forms';
 import { Evenement } from 'src/models/classes/Evenement';
 import { NavigationExtras } from '@angular/router';
 import { NavController, ToastController, IonDatetime, Events, IonTextarea } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
+import { Adresse } from 'src/models/classes/Adresse';
+import { Geolocalisation } from 'src/models/classes/Geolocalisation';
+import { EnumStatut } from 'src/models/enums/EnumStatut';
 
 @Component({
   selector: 'app-page-nouvel-evenement',
@@ -20,7 +24,7 @@ export class PageNouvelEvenementPage implements OnInit {
 
   
 
-  constructor(public navController : NavController, public events : Events, public toastController: ToastController) {
+  constructor(public navController : NavController, public events : Events, public toastController: ToastController, public httpClient : HttpClient) {
   }
 
 
@@ -43,13 +47,37 @@ export class PageNouvelEvenementPage implements OnInit {
   /* Instanciation d'un nouvel évenement à l'initialisation de la page*/
   ngOnInit() {
     this.evenement = new Evenement();
+    this.evenement.adresse = new Adresse();
+    this.evenement.geolocalisation = new Geolocalisation();
   }
 
   public createEvent(){
     this.evenement.setDateEvenement(this.dateEvenement);
     //On vérifie la validité des informations rentrées dans l'évenement
     let check = this.validationEvenement();
+
+  //TEMP
+    this.evenement.adresse.codePostal = "59000";
+    this.evenement.adresse.ville = "Lille";
+    this.evenement.adresse.pays = "France";
+    this.evenement.adresse.rue = "rue nationale";
+    this.evenement.adresse.departement = "Nord";
+    
+    this.evenement.statut = EnumStatut.PUBLIC;
+    this.evenement.image = "zob.png";
+    this.evenement.dateCreation = new Date();
+
+    this.evenement.geolocalisation.latitude = "5161.02";
+    this.evenement.geolocalisation.longitude = "7867.57";
+  //FIN TEMP
+
     if(check){
+      let headers = new Headers();
+      console.log(JSON.stringify(this.evenement));
+      this.httpClient.post("http://localhost:8000/evenements/create", this.evenement).subscribe((evenement) => {
+        console.log(evenement)
+        this.evenement = <Evenement> evenement;
+      });
       //On publie un event disant qu'un évenement a été créé (ex: subscirbe de la page Mes Evenements > met a jour la liste avec le nouvel evenement) 
       this.events.publish("nouvelEvenement:created",this.evenement);
       //On ferme la page

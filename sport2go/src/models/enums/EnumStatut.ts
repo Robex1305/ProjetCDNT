@@ -1,4 +1,4 @@
-enum EnumStatut {
+export const enum EnumStatut {
     PRIVE = "Privé",
     PUBLIC = "Public",
 }

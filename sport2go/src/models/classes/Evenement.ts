@@ -12,7 +12,7 @@ export class Evenement {
     public dateEvenement : Date;
     public dateEvenementFormate : string;
     public heureEvenementFormate : string;
-    public statut : EnumStatut;
+    public statut : String;
     public adresse : Adresse;
     public geolocalisation : Geolocalisation;
     public createur : Utilisateur;

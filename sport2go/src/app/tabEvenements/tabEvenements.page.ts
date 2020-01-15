@@ -7,7 +7,6 @@ import { NavigationExtras, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common'
 import { TabmesevenementsPage } from './tabmesevenements/tabmesevenements.page';
 import { HttpClient, HttpHeaderResponse, HttpHeaders, HttpResponse } from "@angular/common/http"
-import { listenerCount } from 'cluster';
 
 @Component({
   selector: 'app-tabEvenements',
