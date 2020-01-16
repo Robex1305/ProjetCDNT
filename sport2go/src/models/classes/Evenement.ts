@@ -20,7 +20,6 @@ export class Evenement {
     public limiteParticipants : number;
     public image : string;
     public isTermine : boolean;
-    public demo_isAdminMode = false;
 
     public constructor() {
       this.adresse = new Adresse();

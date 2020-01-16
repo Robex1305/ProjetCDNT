@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 
 import { Evenement } from '../../models/classes/Evenement'
 import { Geolocalisation } from 'src/models/classes/Geolocalisation';
@@ -7,6 +7,7 @@ import { NavigationExtras, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common'
 import { TabmesevenementsPage } from './tabmesevenements/tabmesevenements.page';
 import { HttpClient, HttpHeaderResponse, HttpHeaders, HttpResponse } from "@angular/common/http"
+import { EvenementService } from 'src/services/EvenementService';
 
 @Component({
   selector: 'app-tabEvenements',
@@ -17,10 +18,13 @@ export class TabEvenementsPage {
   public listEvenements : Array<Evenement>;
   public tmp_idSuite = 0;
   
+
   //Ajout de listener a l'initialisation de la page
-  public constructor(public navController : NavController, public events: Events, public httpClient : HttpClient) {
+  public constructor(public navController : NavController, 
+                    public events: Events, public httpClient : HttpClient, 
+                    public evenementService : EvenementService) {
     //Listener d'event "Nouvel evenement crée"
-    events.subscribe('nouvelEvenement:created', (evenement) => {
+      this.events.subscribe('nouvelEvenement:created', (evenement) => {
       this.listEvenements.push(evenement);
       this.trier();
     });
@@ -42,27 +46,12 @@ export class TabEvenementsPage {
   }
 
   public ngOnInit(){
-    this.listEvenements = new Array<Evenement>();
-    this.getEvenements();
+    this.evenementService.readAll().subscribe(data => {
+      console.log("Data: " + data)
+      this.listEvenements = <Evenement[]> data;
+      console.log(this.listEvenements)
+    });
   }
-
-  getEvenements(){
-    {
-      let httpHeaders = new HttpHeaders();
-      httpHeaders.set("Accept","application/json");
-
-      this.httpClient.get("http://localhost:8000/evenements/readAll", {headers: httpHeaders}).subscribe((evenements) =>{
-        let received =  <Evenement[]> evenements;
-        
-        received.forEach(evenement => {
-          this.listEvenements.push(evenement);
-        });
-  
-      });
-     
-    }
-  }
-
   
   //Listener de clic: Navigation vers la page de détails de l'évenement
   onCardClick(evenement : Evenement){
@@ -83,8 +72,5 @@ export class TabEvenementsPage {
   //Méthode d'ajout d'évenement. TODO: rework lors de la creation des CRUD
   public addEvent(evenement : Evenement){
     this.listEvenements.push(evenement);
-  }
-
-  ionViewWillEnter(){
   }
 }

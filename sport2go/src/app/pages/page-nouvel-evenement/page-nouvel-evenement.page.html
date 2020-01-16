@@ -7,6 +7,8 @@
 <ion-content>
   <form>
     <br>
+      <h2>Détails</h2>
+      <br>
       &nbsp; Titre
       <ion-input class="input" type="text" [(ngModel)]="evenement.titre" name="title"></ion-input>
       <br>
@@ -16,11 +18,21 @@
       &nbsp;Nombre de participants maximum (0 pour illimité)
       <ion-input class="input" [(ngModel)]="evenement.nb_participantsMax" value="0" type="number" name="nombreParticipantsMax"></ion-input>
       <br>
-      &nbsp; Lieu
-      <ion-input class="input" [(ngModel)]="evenement.geolocalisation.libelle" name="lieu"></ion-input>
+      <h2>Lieu</h2>
+      <br>
+      &nbsp; Code postal
+      <ion-input (input)="inputValidator($event)" class="input" [(ngModel)]="evenement.adresse.codePostal" maxLength="5"  name="lieu" (ionChange)="onCodePostalChange()"></ion-input>
+      <br>
+      &nbsp; Ville
+      <ion-select name="ville" [(ngModel)]="evenement.adresse.ville">
+        <ion-select-option *ngFor="let commune of communesAssociees">{{commune.nom}}</ion-select-option>
+      </ion-select>
+      <br>
+      &nbsp; Rue
+      <ion-input class="input" [(ngModel)]="evenement.adresse.rue" name="lieu"></ion-input>
       <br>
       &nbsp; Date et heure
-      <ion-datetime class="input" [(ngModel)]="dateEvenement" displayFormat="DD/MM/YYYY, HH:mm" pickerFormat="DD/MM/YYYY, HH:mm" [min]="minDate" [max]="maxDate" name="dateEvenement"></ion-datetime>
+      <ion-datetime class="input" [(ngModel)]="evenement.dateEvenement" displayFormat="DD/MM/YYYY, HH:mm" pickerFormat="DD/MM/YYYY, HH:mm" [min]="minDate" [max]="maxDate" name="dateEvenement"></ion-datetime>
       <br>
 
     <ion-button style="border-bottom: solid 1px rgb(184, 213, 255);"expand="full" (click)="createEvent()" block>Créer <ion-icon name="add"></ion-icon></ion-button>

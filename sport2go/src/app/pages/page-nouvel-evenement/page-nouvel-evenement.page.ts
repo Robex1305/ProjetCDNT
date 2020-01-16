@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Evenement } from 'src/models/classes/Evenement';
 import { NavigationExtras } from '@angular/router';
@@ -7,6 +7,12 @@ import { HttpClient } from '@angular/common/http';
 import { Adresse } from 'src/models/classes/Adresse';
 import { Geolocalisation } from 'src/models/classes/Geolocalisation';
 import { EnumStatut } from 'src/models/enums/EnumStatut';
+import { stringify } from 'querystring';
+import { Commune } from 'src/models/classes/DTO/gouv/Commune';
+import { ChangeDetectorRef } from '@angular/core'
+import { Departement } from 'src/models/classes/DTO/gouv/Departement';
+import { ApiGeoGouvService } from 'src/services/ApiGeoGouvService';
+import { EvenementService } from 'src/services/EvenementService';
 
 @Component({
   selector: 'app-page-nouvel-evenement',
@@ -20,13 +26,20 @@ import { EnumStatut } from 'src/models/enums/EnumStatut';
 export class PageNouvelEvenementPage implements OnInit {
   public evenement : Evenement;
   public dateEvenement : Date;
+  public communesAssociees : Array<Commune>;
   toast : any;
 
   
 
-  constructor(public navController : NavController, public events : Events, public toastController: ToastController, public httpClient : HttpClient) {
+  constructor(
+              public apiGeoGouvService : ApiGeoGouvService,
+              public evenementService : EvenementService,
+              public navController : NavController,
+              public events : Events,
+              public toastController: ToastController,
+              public httpClient : HttpClient,
+              private changeRef: ChangeDetectorRef) {
   }
-
 
   /* Retourne la date dans 2 ans a partir d'aujourd'hui qui servira de date maximum pour le datePicker
      afin d'éviter de se retrouver avec des événemenets le 27 Janvier 2599 */
@@ -49,48 +62,47 @@ export class PageNouvelEvenementPage implements OnInit {
     this.evenement = new Evenement();
     this.evenement.adresse = new Adresse();
     this.evenement.geolocalisation = new Geolocalisation();
+    this.changeRef.detectChanges();
   }
 
   public createEvent(){
-    this.evenement.setDateEvenement(this.dateEvenement);
     //On vérifie la validité des informations rentrées dans l'évenement
     let check = this.validationEvenement();
 
-  //TEMP
-    this.evenement.adresse.codePostal = "59000";
-    this.evenement.adresse.ville = "Lille";
-    this.evenement.adresse.pays = "France";
-    this.evenement.adresse.rue = "rue nationale";
-    this.evenement.adresse.departement = "Nord";
-    
-    this.evenement.statut = EnumStatut.PUBLIC;
-    this.evenement.image = "zob.png";
-    this.evenement.dateCreation = new Date();
-
-    this.evenement.geolocalisation.latitude = "5161.02";
-    this.evenement.geolocalisation.longitude = "7867.57";
-  //FIN TEMP
 
     if(check){
-      let headers = new Headers();
-      console.log(JSON.stringify(this.evenement));
-      this.httpClient.post("http://localhost:8000/evenements/create", this.evenement).subscribe((evenement) => {
-        console.log(evenement)
+      this.evenementService.createEvenement(this.evenement).subscribe((evenement) => {
         this.evenement = <Evenement> evenement;
-      });
-      //On publie un event disant qu'un évenement a été créé (ex: subscirbe de la page Mes Evenements > met a jour la liste avec le nouvel evenement) 
-      this.events.publish("nouvelEvenement:created",this.evenement);
-      //On ferme la page
-      this.navController.pop();
+
+        if(this.evenement.id != null){
+          this.events.publish("nouvelEvenement:created",this.evenement);
+          this.navController.pop();
+        }else{
+          this.toaster("Une erreur est survenue lors de la création de l'évenement")
+        }
+     });
     }
   }
 
-  
+  public onCodePostalChange(){
+    let cp = this.evenement.adresse.codePostal;
+    
+    if(cp.length == 5){
+      this.apiGeoGouvService.getCommunes(cp).subscribe(c => {
+        this.communesAssociees = <Commune[]> c;
+      });
+    
+      this.apiGeoGouvService.getDepartement(cp).subscribe(data => {
+        this.evenement.adresse.departement = (<Departement[]> data)[0].nom;
+      });
+    }
+  }
+
   public validationEvenement(){
     let e = this.evenement;
     let messageToast : string;
-    e.demo_isAdminMode = true;
     let check = true;
+
     if(e.titre === undefined || e.titre === ''){
       messageToast = "Le titre ne peux pas être vide"
       check = false
@@ -99,19 +111,32 @@ export class PageNouvelEvenementPage implements OnInit {
       messageToast = "Le titre doit faire au moins 5 lettres"
       check = false
     }
-    else if(isNaN(e.dateEvenement.getTime())){
+    else if(isNaN(new Date(e.dateEvenement).getTime())){
       messageToast = "Veuillez saisir une date pour l'événement"
       check = false
     }
-    else if(e.geolocalisation.libelle === undefined || e.geolocalisation.libelle === ''){
-      messageToast = "Le lieu de l'événement n'est pas défini"
+    else if(e.adresse.rue === undefined || e.adresse.rue === ''){
+      messageToast = "La rue de l'événement n'est pas défini"
+      check = false
+    }
+    else if(e.adresse.ville === undefined || e.adresse.ville === ''){
+      messageToast = "La ville de l'événement n'est pas défini"
+      check = false
+    }else if(e.adresse.codePostal === undefined || e.adresse.codePostal === ''){
+      messageToast = "Le code postal de l'événement n'est pas défini"
       check = false
     }else{
       messageToast = 'Événement "'+ this.evenement.titre + '" créé avec succès';
     }
 
+    this.toaster(messageToast);
+
+    return check;
+  }
+
+  public toaster(message:string){
     this.toast = this.toastController.create({
-      message: messageToast,
+      message: message,
       showCloseButton: true,
       cssClass: "toast",
       duration: 2000
@@ -119,9 +144,15 @@ export class PageNouvelEvenementPage implements OnInit {
       console.log(toastData);
       toastData.present();
     });
-
-    return check;
   }
 
-
+  public inputValidator(event: any) {
+    //console.log(event.target.value);
+    const pattern = /[^0-9]/;   
+    //let inputChar = String.fromCharCode(event.charCode)
+    if (pattern.test(event.target.value)) {
+      event.target.value = event.target.value.replace(/[^0-9]/, "");
+      // invalid character, prevent input
+    }
+  }
 }
