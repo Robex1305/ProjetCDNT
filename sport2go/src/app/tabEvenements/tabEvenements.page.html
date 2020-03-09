@@ -6,6 +6,7 @@
 </ion-header>
 
 
+
 <ion-content>
   <ion-card *ngFor="let event of listEvenements">
       <ion-card-header [color]="event.color">
@@ -26,19 +27,19 @@
         <ion-card-content type="button" (click)="onCardClick(event)">
           <h3>
             <ion-icon name="calendar"></ion-icon>
-            {{event.dateEvenementFormate}}
+            {{formatDate(event.dateEvenement)}}
           </h3>
     
     
           <h3>
             <ion-icon name="clock"></ion-icon>
-            {{event.heureEvenementFormate}}
+            {{formatHeure(event.dateEvenement)}}
           </h3>
     
     
           <h3>
             <ion-icon name="pin"></ion-icon>
-            {{event.geolocalisation.libelle}}
+            {{event.adresse.ville}}
           </h3>
         </ion-card-content>
 

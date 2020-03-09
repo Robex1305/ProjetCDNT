@@ -72,16 +72,15 @@ export class PageNouvelEvenementPage implements OnInit {
 
     if(check){
       this.evenementService.createEvenement(this.evenement).subscribe((evenement) => {
-        this.evenement = <Evenement> evenement;
-
-        if(this.evenement.id != null){
+          this.evenement = JSON.parse(JSON.stringify(evenement));
           this.events.publish("nouvelEvenement:created",this.evenement);
-          this.navController.pop();
-        }else{
-          this.toaster("Une erreur est survenue lors de la création de l'évenement")
-        }
-     });
-    }
+          this.toaster("Évènement \"" + this.evenement.titre + "\" créé avec succès")
+          this.navController.navigateBack("tabEvenements");
+        }, (err) => {
+          this.toaster("Une erreur est survenue lors de la création de l'évenement, veuillez réessayer plus tard.")
+          console.log(err);
+        });
+      }
   }
 
   public onCodePostalChange(){
@@ -90,10 +89,14 @@ export class PageNouvelEvenementPage implements OnInit {
     if(cp.length == 5){
       this.apiGeoGouvService.getCommunes(cp).subscribe(c => {
         this.communesAssociees = <Commune[]> c;
+      }, (err) => {
+        this.toaster("La connexion au service de géolocalisation a échoué, veuillez réessayer plus tard.");
       });
     
       this.apiGeoGouvService.getDepartement(cp).subscribe(data => {
         this.evenement.adresse.departement = (<Departement[]> data)[0].nom;
+      }, (err) => {
+        this.toaster("La connexion au service de géolocalisation a échoué, veuillez réessayer plus tard.");
       });
     }
   }
@@ -125,12 +128,11 @@ export class PageNouvelEvenementPage implements OnInit {
     }else if(e.adresse.codePostal === undefined || e.adresse.codePostal === ''){
       messageToast = "Le code postal de l'événement n'est pas défini"
       check = false
-    }else{
-      messageToast = 'Événement "'+ this.evenement.titre + '" créé avec succès';
     }
 
-    this.toaster(messageToast);
-
+    if(!check){
+      this.toaster(messageToast);
+    }
     return check;
   }
 
@@ -138,8 +140,9 @@ export class PageNouvelEvenementPage implements OnInit {
     this.toast = this.toastController.create({
       message: message,
       showCloseButton: true,
+      closeButtonText: "Fermer",
       cssClass: "toast",
-      duration: 2000
+      duration: 5000
     }).then((toastData)=>{
       console.log(toastData);
       toastData.present();

@@ -16,7 +16,7 @@
       <ion-textarea class="input" maxLength="350" [(ngModel)]="evenement.description" name="description"></ion-textarea>
       <br>
       &nbsp;Nombre de participants maximum (0 pour illimité)
-      <ion-input class="input" [(ngModel)]="evenement.nb_participantsMax" value="0" type="number" name="nombreParticipantsMax"></ion-input>
+      <ion-input class="input" [(ngModel)]="evenement.nombreParticipantsMax" type="number" name="nombreParticipantsMax" value="evenement.nombreParticipantsMax"></ion-input>
       <br>
       <h2>Lieu</h2>
       <br>
@@ -24,7 +24,7 @@
       <ion-input (input)="inputValidator($event)" class="input" [(ngModel)]="evenement.adresse.codePostal" maxLength="5"  name="lieu" (ionChange)="onCodePostalChange()"></ion-input>
       <br>
       &nbsp; Ville
-      <ion-select name="ville" [(ngModel)]="evenement.adresse.ville">
+      <ion-select name="ville" [(ngModel)]="evenement.adresse.ville" placeholder="---">
         <ion-select-option *ngFor="let commune of communesAssociees">{{commune.nom}}</ion-select-option>
       </ion-select>
       <br>

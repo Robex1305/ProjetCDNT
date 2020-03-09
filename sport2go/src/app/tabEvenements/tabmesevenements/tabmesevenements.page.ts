@@ -36,28 +36,7 @@ export class TabmesevenementsPage{
 
   public ngOnInit(){
     this.listEvenements = new Array<Evenement>();
-    this.getEvenements();
   }
-
-  
-  //Initialisation d'évenements en dur: mirroir de ce qui est généré dans tabEvenements.page.ts, on en selectionne que 3. TODO: a supprimer
-  getEvenements() {
-    
-  }
-
-  getEvenementsTermine() {
-    let listeEvenements = new Array < Evenement > ();
-    let e = new Evenement();
-    e._dateEvenement = new Date(2019, 8, 11, 13, 30);
-    let geoloc = new Geolocalisation();
-    geoloc.libelle = "Lille"
-    e.geolocalisation = geoloc;
-    e.nb_participants = 2846;
-    e.titre = "Evenement terminé";
-    listeEvenements.push(e);
-    return listeEvenements;
-  }
-
 
   //Listener de clic: navigation vers la page détail de l'évenement cliqué
   onCardClick(evenement: Evenement) {
