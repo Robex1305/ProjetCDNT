@@ -16,7 +16,8 @@ import {
 } from '@ionic/angular';
 import {
   NavigationExtras,
-  ActivatedRoute
+  ActivatedRoute,
+  Router
 } from '@angular/router';
 import {
   DatePipe,
@@ -27,8 +28,9 @@ import {
   TabmesevenementsPage
 } from './tabmesevenements/tabmesevenements.page';
 import {
-  EvenementService
+  EvenementService,
 } from 'src/services/EvenementService';
+import { DateService } from 'src/services/DateService';
 
 @Component({
   selector: 'app-tabEvenements',
@@ -40,9 +42,11 @@ export class TabEvenementsPage {
   public tmp_idSuite = 0;
   public loaderToShow : any;
   //Ajout de listener a l'initialisation de la page
-  public constructor(public navController: NavController,
+  public constructor(public routeur:Router,
     public events: Events,
-    public evenementService: EvenementService, public loadingController:LoadingController) {
+    public evenementService: EvenementService,
+    public loadingController:LoadingController,
+    public dateService:DateService) {
     //Listener d'event "Nouvel evenement crée"
     this.events.subscribe('nouvelEvenement:created', (evenement) => {
       this.listEvenements.push(evenement);
@@ -62,12 +66,7 @@ export class TabEvenementsPage {
       message: 'Merci de patienter...'
     }).then((res) => {
       res.present();
- 
-      res.onDidDismiss().then((dis) => {
-        console.log('Loading dismissed!');
-      });
     });
-    this.hideLoader();
   }
  
   hideLoader() {
@@ -114,18 +113,12 @@ export class TabEvenementsPage {
 
   //Listener de clic: Navigation vers la page de détails de l'évenement
   onCardClick(evenement: Evenement) {
-    //On passe en parametre (navigationExtras) du navController l'evenement
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        id : evenement.id
-      }
-    }
-    this.navController.navigateForward(['page-details-evenement'], navigationExtras);
+    this.routeur.navigateByUrl('evenement/details/' + evenement.id);
   }
 
   //Navigation vers la page de création d'évenement
   public goToNewEvent() {
-    this.navController.navigateForward(['page-nouvel-evenement']);
+    this.routeur.navigateByUrl('evenement/new');
   }
 
   //Méthode d'ajout d'évenement. TODO: rework lors de la creation des CRUD

@@ -8,7 +8,7 @@
 
 
 <ion-content>
-  <ion-card *ngFor="let event of listEvenements">
+  <ion-card *ngFor="let event of listEvenements" (click)="onCardClick(event)">
       <ion-card-header [color]="event.color">
           <ion-row style="height: auto;">
     
@@ -24,16 +24,16 @@
     
         </ion-card-header>
     
-        <ion-card-content type="button" (click)="onCardClick(event)">
+        <ion-card-content type="button" >
           <h3>
             <ion-icon name="calendar"></ion-icon>
-            {{formatDate(event.dateEvenement)}}
+            {{dateService.formateDate(event.dateEvenement)}}
           </h3>
     
     
           <h3>
             <ion-icon name="clock"></ion-icon>
-            {{formatHeure(event.dateEvenement)}}
+            {{dateService.formateHeure(event.dateEvenement)}}
           </h3>
     
     

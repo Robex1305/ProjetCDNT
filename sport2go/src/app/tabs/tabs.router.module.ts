@@ -1,73 +1,51 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { TabsPage } from './tabs.page';
+import {
+  NgModule
+} from '@angular/core';
+import {
+  RouterModule,
+  Routes
+} from '@angular/router';
+import {
+  TabsPage
+} from './tabs.page';
 
-const routes: Routes = [
-  {
-    path: 'tabs',
+const routes: Routes = [{
+    path: '',
+    loadChildren: 'home',
     component: TabsPage,
     children: [
       {
-        path: 'tabmesevenements',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../tabEvenements/tabmesevenements/tabmesevenements.module').then(m => m.TabmesevenementsPageModule)
-          }
-        ]
+        path: 'home',
+        loadChildren: () =>
+          import('../tabhome/tabhome.module').then(m => m.TabhomePageModule)
       },
       {
-        path: 'tabEvenements',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../tabEvenements/tabEvenements.module').then(m => m.TabEvenementsPageModule)
-          }
-        ]
+        path: 'evenements',
+        loadChildren: () =>
+          import('../tabEvenements/tabEvenements.module').then(m => m.TabEvenementsPageModule)
       },
       {
-        path: 'tabhome',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../tabhome/tabhome.module').then(m => m.TabhomePageModule)
-          }
-        ]
+        path: 'mes-evenements',
+        loadChildren: () =>
+          import('../tabEvenements/tabmesevenements/tabmesevenements.module').then(m => m.TabmesevenementsPageModule)
       },
       {
-        path: 'tabsocial',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../tabsocial/tabsocial.module').then(m => m.TabsocialPageModule)
-          }
-        ]
+        path: 'messagerie',
+        loadChildren: () =>
+          import('../tabmessages/tabmessages.module').then(m => m.TabmessagesPageModule)
       },
       {
-        path: 'tabmessages',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../tabmessages/tabmessages.module').then(m => m.TabmessagesPageModule)
-          }
-        ]
-      },
-      {
-        path: '',
-        redirectTo: '/tabs/tabhome',
-        pathMatch: 'full'
+        path: 'social',
+        loadChildren: () =>
+          import('../tabsocial/tabsocial.module').then(m => m.TabsocialPageModule)
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tabhome',
-    pathMatch: 'full'
+    redirectTo: 'home',
+    pathMatch: 'full',
+
   }
 ];
 

@@ -12,4 +12,12 @@ export class PageLogInPage implements OnInit {
   ngOnInit() {
   }
 
+  public signIn(){
+
+  }
+
+  public signUp(){
+    
+  }
+
 }
