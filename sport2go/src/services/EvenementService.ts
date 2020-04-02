@@ -27,12 +27,12 @@ import {
 
 export class EvenementService {
     public baseURL = "http://localhost:8000/evenements";
-
     public constructor(private httpClient: HttpClient, public events: Events, public apiGeoGouvService: ApiGeoGouvService) {
-
+        
     }
 
     public createEvenement(evenement: Evenement) {
+        //TODO
         //TEMP
         evenement.statut = EnumStatut.PUBLIC;
         evenement.image = "zob.png";
@@ -42,25 +42,36 @@ export class EvenementService {
         evenement.geolocalisation.longitude = "7867.57";
         evenement.geolocalisation.libelle = "ICI";
         //FIN TEMP  
-
-        return this.httpClient.post(this.baseURL + "/create", evenement, {
-            responseType: 'text'
+        const url = this.baseURL + "/create";
+        let token = localStorage.getItem("token");
+        
+        return this.httpClient.post(url, evenement, {
+            responseType: 'text',
+            headers: {"token": token}
         });
     }
 
     public read(id: number) {
         const url = this.baseURL + "/read/" + id;
-        return this.httpClient.get<Evenement>(url)
+        let token = localStorage.getItem("token");
+        
+        return this.httpClient.get<Evenement>(url, {
+            headers: {"token": token}
+        })
     }
 
     public delete(id: number) {
         const url = this.baseURL + "/delete/" + id;
-        return this.httpClient.delete(url);
+        let token = localStorage.getItem("token");
+
+        return this.httpClient.delete(url, {
+            headers: {"token": token}
+        });
     }
     public readAll() {
-        let httpHeaders = new HttpHeaders();
-        httpHeaders.set("Accept", "application/json");
-
-        return this.httpClient.get<Evenement[]>(this.baseURL + "/readAll", {headers: httpHeaders});
+        let token = localStorage.getItem("token");
+        return this.httpClient.get<Evenement[]>(this.baseURL + "/readAll", {
+            headers: {"token": token}
+        });
     }
 }

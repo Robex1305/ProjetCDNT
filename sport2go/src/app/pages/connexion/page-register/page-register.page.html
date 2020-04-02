@@ -1,9 +1,42 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>pageRegister</ion-title>
+    <ion-title>Créer un comtpe</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
+
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+        <div text-center>
+          <ion-item>
+            <ion-input placeholder="Nom" [(ngModel)]="user.nom"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input placeholder="Prénom" [(ngModel)]="user.prenom"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-datetime style="padding-left: 0px;"  placeholder="Date de naissance" [(ngModel)]="user.dateNaissance" displayFormat="DD/MM/YYYY"
+              pickerFormat="DD/MM/YYYY"></ion-datetime>
+          </ion-item>
+
+          <ion-item>
+            <ion-input placeholder="Adresse email" [(ngModel)]="user.email"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input placeholder="Mot de passe" type="password" [(ngModel)]="user.password"></ion-input>
+          </ion-item>
+
+          <ion-button ion-button color="secondary" (click)="register()">
+            Créer
+          </ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 
 </ion-content>

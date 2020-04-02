@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Utilisateur } from 'src/models/classes/Utilisateur';
 import { NavController } from '@ionic/angular';
-import { NavigationExtras } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { EnumSexe } from 'src/models/enums/EnumSexe';
+import { AuthenticationService } from 'src/services/AuthenticationService';
+import { Popup } from 'src/util/Popup';
 
 @Component({
   selector: 'app-tabhome',
@@ -13,29 +15,15 @@ export class TabhomePage implements OnInit {
   public user : Utilisateur;
   public hello : String; 
 
-  constructor(public navController:NavController) { }
+  constructor(public router:Router, public authService:AuthenticationService, public popUp:Popup) { }
 
   ngOnInit() {
-    this.user = new Utilisateur();
-    this.user.prenom = "Jeffrey";
-    this.user.nom = "DUSPORT";
-    this.user.sexe = EnumSexe.HOMME;
-    this.user.date_naissance = new Date(12, 6, 1995);
-    this.user.isEnLigne = true;
-    this.user.pseudo = "Jeff59";
-    this.user.profilePicture = "../../../assets/jeffreyDUSPORT_pp.png";
-    this.user.coverPicture = "../../../assets/sport.jpg";
+    
   }
 
-  public goToProfile(){
-    let navigationExtras : NavigationExtras = {
-      queryParams: {
-        user: JSON.stringify(this.user)
-      }
-    };
-
-    this.navController.navigateForward(['page-profil'], navigationExtras);
-
+  public logout(){
+    this.authService.destroySession();
+    this.router.navigateByUrl("login");
+    this.popUp.showMessage("Déconnecté")
   }
-
 }

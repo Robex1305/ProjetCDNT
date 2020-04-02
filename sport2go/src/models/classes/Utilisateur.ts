@@ -6,31 +6,17 @@ import { Sport } from './Sport';
 import { Statistique } from './Statistique';
 
 export class Utilisateur{
-    public utilisateur_id : number;
+    public id : number;
     public nom : string;
     public prenom : string;
-    public date_naissance : Date;
-    public sexe : string;
-    public pseudo : string;
-    public profilePicture : string;
-    public coverPicture : string;
-    public conversationsPrive : Array<ConversationSimple>;
-    public conversationsGroupe : Array<ConversationGroupe>;
-    public parametre : Parametre;
-    public sport_principaux : Array<Sport>;
-    public sport_secondaires : Array<Sport>;
-    public listeStatistiques : Array<Statistique>;
-    public listeEvenements : Array<Evenement>;
-    public isEnLigne : Boolean;
-
+    public dateNaissance : Date;
+    public email : string;
+    public password : string;
+    public token : string;
+    public evenements : Evenement[];
+    public sports : Sport[];
+    public sportPrincipal : Sport;
     public constructor() {
-        this.conversationsPrive = new Array<ConversationSimple>();
-        this.conversationsGroupe = new Array<ConversationGroupe>();
-        this.sport_principaux = new Array<Sport>();
-        this.sport_secondaires = new Array<Sport>();
-        this.listeStatistiques = new Array<Statistique>();
-        this.listeEvenements = new Array<Evenement>();
-        this.isEnLigne = true;
     }
 
     public getNomComplet(){

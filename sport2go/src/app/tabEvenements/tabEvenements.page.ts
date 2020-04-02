@@ -31,6 +31,7 @@ import {
   EvenementService,
 } from 'src/services/EvenementService';
 import { DateService } from 'src/services/DateService';
+import { Popup } from 'src/util/Popup';
 
 @Component({
   selector: 'app-tabEvenements',
@@ -46,7 +47,8 @@ export class TabEvenementsPage {
     public events: Events,
     public evenementService: EvenementService,
     public loadingController:LoadingController,
-    public dateService:DateService) {
+    public dateService:DateService,
+    public popup:Popup) {
     //Listener d'event "Nouvel evenement crée"
     this.events.subscribe('nouvelEvenement:created', (evenement) => {
       this.listEvenements.push(evenement);
@@ -61,21 +63,6 @@ export class TabEvenementsPage {
     });
   }
 
-  showLoader() {
-    this.loaderToShow = this.loadingController.create({
-      message: 'Merci de patienter...'
-    }).then((res) => {
-      res.present();
-    });
-  }
- 
-  hideLoader() {
-    setTimeout(() => {
-      this.loadingController.dismiss();
-    }, 0);
-  }
-  
-
   //Trie les évenement selon la date
   public trier() {
     this.listEvenements.sort(function (a, b) {
@@ -83,11 +70,11 @@ export class TabEvenementsPage {
     })
   }
 
-  public ngOnInit() {
-    this.showLoader();
+   ngOnInit() {
+    this.popup.showLoader();
     this.evenementService.readAll().subscribe(data => {
       this.listEvenements = < Evenement[] > data;
-      this.hideLoader();
+      this.popup.hideLoader();
     });
   }
 

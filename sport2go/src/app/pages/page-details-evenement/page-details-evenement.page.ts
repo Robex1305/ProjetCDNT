@@ -25,7 +25,12 @@ import {
 import {
   EventEmitter
 } from 'protractor';
-import { DateService } from 'src/services/DateService';
+import {
+  DateService
+} from 'src/services/DateService';
+import {
+  Popup
+} from 'src/util/Popup';
 
 @Component({
   selector: 'app-page-details-evenement',
@@ -35,18 +40,19 @@ import { DateService } from 'src/services/DateService';
 export class PageDetailsEvenementPage implements OnInit {
 
   public evenement: Evenement;
-  toast: any;
-  loaderToShow: any;
+
+
   public loaded: boolean;
 
   public constructor(public loadingController: LoadingController,
-     public evenementService: EvenementService,
-      private route: ActivatedRoute,
-       private router: Router,
-        public events: Events,
-         public toastController: ToastController,
-          public alertCtrl: AlertController,
-          public dateService : DateService) {}
+    public evenementService: EvenementService,
+    private route: ActivatedRoute,
+    private router: Router,
+    public events: Events,
+    public toastController: ToastController,
+    public alertCtrl: AlertController,
+    public popup: Popup,
+    public dateService: DateService) {}
 
   ngOnInit() {
     this.loaded = false;
@@ -70,51 +76,22 @@ export class PageDetailsEvenementPage implements OnInit {
     });
   }
 
-  showLoader() {
-    this.loaderToShow = this.loadingController.create({
-      message: 'Merci de patienter...'
-    }).then((res) => {
-      res.present();
-    });
-  }
- 
-  hideLoader() {
-    setTimeout(() => {
-      this.loadingController.dismiss();
-    }, 0);
-  }
-  
-  async delete() {
-    const alert = await this.alertCtrl.create({
-      header: "Demande de confirmation",
-      message: 'Êtes-vous sur de vouloir supprimer l`événement "' + this.evenement.titre + '" ?',
-      buttons: [{
-          text: 'Non',
-        },
-        {
-          text: 'Oui',
-          handler: () => {
-            this.showLoader();
-            this.evenementService.delete(this.evenement.id).subscribe(() => {
-              this.events.publish("evenement:delete", this.evenement.id);
-              this.toast = this.toastController.create({
-                message: 'L`événement "' + this.evenement.titre + '" a été supprimé',
-                showCloseButton: true,
-                cssClass: "toast",
-                duration: 2000
-              }).then((toastData) => {
-                toastData.present();
-                this.router.navigateByUrl("evenements");
-                this.hideLoader()
-              });
-              
-            });
 
-          }
-        }
-      ]
-    })
-    alert.present();
+
+
+
+  async delete() {
+    this.popup.promptOuiNon(
+      "Attention",
+      "Etes vous sur de vouloir supprimer cet évenement?",
+      () => {
+        this.evenementService.delete(this.evenement.id).subscribe(() => {
+          this.events.publish("evenement:delete", this.evenement.id);
+          this.router.navigateByUrl("evenements");
+        });
+      },
+      true);
+
   }
 
 }

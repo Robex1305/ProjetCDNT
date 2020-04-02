@@ -8,11 +8,12 @@ import {
 import {
   TabsPage
 } from './tabs.page';
+import { Guardian } from 'src/services/Guardian';
 
 const routes: Routes = [{
     path: '',
-    loadChildren: 'home',
     component: TabsPage,
+    canActivate: [Guardian],
     children: [
       {
         path: 'home',
@@ -40,12 +41,6 @@ const routes: Routes = [{
           import('../tabsocial/tabsocial.module').then(m => m.TabsocialPageModule)
       }
     ]
-  },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
-
   }
 ];
 
