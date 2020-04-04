@@ -9,7 +9,9 @@ import { Router } from '@angular/router';
 export class TabsPage {
 
   constructor(public router:Router) {
-    this.router.navigateByUrl("home");
+    if(this.router.url === '/'){
+      this.router.navigateByUrl('home')
+    }
   }
 
 }

@@ -15,7 +15,7 @@ export class TabhomePage implements OnInit {
   public user : Utilisateur;
   public hello : String; 
 
-  constructor(public router:Router, public authService:AuthenticationService, public popUp:Popup) { }
+  constructor(public navController: NavController, public router:Router, public authService:AuthenticationService, public popUp:Popup) { }
 
   ngOnInit() {
     

@@ -15,18 +15,22 @@ const routes: Routes = [{
     canActivate: [Guardian],
     children: [{
         path: '',
-        loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+        loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
       },
       {
-        path: '',
+        path: 'home',
+        loadChildren: () => import('./tabhome/tabhome.module').then(m => m.TabhomePageModule),
+      },
+      {
+        path: 'social',
         loadChildren: () => import('./tabsocial/tabsocial.module').then(m => m.TabsocialPageModule)
       },
       {
-        path: 'evenement/details/:evenementId',
+        path: 'evenements/details/:evenementId',
         loadChildren: () => import('./pages/page-details-evenement/page-details-evenement.module').then(m => m.PageDetailsEvenementPageModule)
       },
       {
-        path: 'evenement/new',
+        path: 'evenements/new',
         loadChildren: () => import('./pages/page-nouvel-evenement/page-nouvel-evenement.module').then(m => m.PageNouvelEvenementPageModule),
       },
       {
@@ -45,13 +49,10 @@ const routes: Routes = [{
     loadChildren: () => import('./pages/connexion/page-register/page-register.module').then(m => m.PageRegisterPageModule)
   },
   {
-    path: "**", redirectTo: "home"
-  }
-
-
-
-
-
+    path: "**", 
+    redirectTo: "home"
+  },
+  
 ];
 
 @NgModule({

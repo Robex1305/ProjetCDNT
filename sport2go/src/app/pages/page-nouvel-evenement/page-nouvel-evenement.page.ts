@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Evenement } from 'src/models/classes/Evenement';
-import { NavigationExtras } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { NavController, ToastController, IonDatetime, Events, IonTextarea } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Adresse } from 'src/models/classes/Adresse';
@@ -13,6 +13,7 @@ import { ChangeDetectorRef } from '@angular/core'
 import { Departement } from 'src/models/classes/DTO/gouv/Departement';
 import { ApiGeoGouvService } from 'src/services/ApiGeoGouvService';
 import { EvenementService } from 'src/services/EvenementService';
+import { Popup } from 'src/util/Popup';
 
 @Component({
   selector: 'app-page-nouvel-evenement',
@@ -38,7 +39,8 @@ export class PageNouvelEvenementPage implements OnInit {
               public events : Events,
               public toastController: ToastController,
               public httpClient : HttpClient,
-              private changeRef: ChangeDetectorRef) {
+              private changeRef: ChangeDetectorRef,
+              public popUp : Popup) {
   }
 
   /* Retourne la date dans 2 ans a partir d'aujourd'hui qui servira de date maximum pour le datePicker
@@ -74,10 +76,10 @@ export class PageNouvelEvenementPage implements OnInit {
       this.evenementService.createEvenement(this.evenement).subscribe((evenement) => {
           this.evenement = JSON.parse(JSON.stringify(evenement));
           this.events.publish("nouvelEvenement:created",this.evenement);
-          this.toaster("Évènement \"" + this.evenement.titre + "\" créé avec succès")
-          this.navController.navigateBack("tabEvenements");
+          this.popUp.showLoaderCustom("Évènement \"" + this.evenement.titre + "\" créé avec succès")
+          this.goToEvents();
         }, (err) => {
-          this.toaster("Une erreur est survenue lors de la création de l'évenement, veuillez réessayer plus tard.")
+          this.popUp.showLoaderCustom("Une erreur est survenue lors de la création de l'évenement, veuillez réessayer plus tard.")
           console.log(err);
         });
       }
@@ -90,13 +92,7 @@ export class PageNouvelEvenementPage implements OnInit {
       this.apiGeoGouvService.getCommunes(cp).subscribe(c => {
         this.communesAssociees = <Commune[]> c;
       }, (err) => {
-        this.toaster("La connexion au service de géolocalisation a échoué, veuillez réessayer plus tard.");
-      });
-    
-      this.apiGeoGouvService.getDepartement(cp).subscribe(data => {
-        this.evenement.adresse.departement = (<Departement[]> data)[0].nom;
-      }, (err) => {
-        this.toaster("La connexion au service de géolocalisation a échoué, veuillez réessayer plus tard.");
+        this.popUp.showLoaderCustom("La connexion au service de géolocalisation a échoué, veuillez réessayer plus tard.");
       });
     }
   }
@@ -131,22 +127,9 @@ export class PageNouvelEvenementPage implements OnInit {
     }
 
     if(!check){
-      this.toaster(messageToast);
+      this.popUp.showLoaderCustom(messageToast);
     }
     return check;
-  }
-
-  public toaster(message:string){
-    this.toast = this.toastController.create({
-      message: message,
-      showCloseButton: true,
-      closeButtonText: "Fermer",
-      cssClass: "toast",
-      duration: 5000
-    }).then((toastData)=>{
-      console.log(toastData);
-      toastData.present();
-    });
   }
 
   public inputValidator(event: any) {
@@ -157,5 +140,9 @@ export class PageNouvelEvenementPage implements OnInit {
       event.target.value = event.target.value.replace(/[^0-9]/, "");
       // invalid character, prevent input
     }
+  }
+
+  public goToEvents(){
+    this.navController.back();
   }
 }

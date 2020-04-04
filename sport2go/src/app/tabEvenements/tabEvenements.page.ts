@@ -100,12 +100,12 @@ export class TabEvenementsPage {
 
   //Listener de clic: Navigation vers la page de détails de l'évenement
   onCardClick(evenement: Evenement) {
-    this.routeur.navigateByUrl('evenement/details/' + evenement.id);
+    this.routeur.navigateByUrl('evenements/details/' + evenement.id);
   }
 
   //Navigation vers la page de création d'évenement
   public goToNewEvent() {
-    this.routeur.navigateByUrl('evenement/new');
+    this.routeur.navigateByUrl('evenements/new');
   }
 
   //Méthode d'ajout d'évenement. TODO: rework lors de la creation des CRUD

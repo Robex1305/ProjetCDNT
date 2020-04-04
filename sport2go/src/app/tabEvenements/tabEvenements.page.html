@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Événements</ion-title>
+  <ion-toolbar text-center>
+    <ion-title>Évenements</ion-title>
     <ion-icon slot="end" name="add" (click)="goToNewEvent()" style="margin-right: 2%;"></ion-icon>
   </ion-toolbar>
 </ion-header>
@@ -8,7 +8,7 @@
 
 
 <ion-content>
-  <ion-card *ngFor="let event of listEvenements" (click)="onCardClick(event)">
+  <ion-card class="container" *ngFor="let event of listEvenements" (click)="onCardClick(event)">
       <ion-card-header [color]="event.color">
           <ion-row style="height: auto;">
     

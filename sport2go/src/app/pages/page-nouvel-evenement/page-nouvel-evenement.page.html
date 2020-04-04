@@ -1,40 +1,53 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar text-center>
     <ion-title>Créer un évenement</ion-title>
+    <ion-icon slot="start" name="arrow-back" (click)="goToEvents()" style="margin-left: 2%;"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <form>
-    <br>
-      <h2>Détails</h2>
-      <br>
-      &nbsp; Titre
-      <ion-input class="input" type="text" [(ngModel)]="evenement.titre" name="title"></ion-input>
-      <br>
-      &nbsp; Description (350 caractères max)
-      <ion-textarea class="input" maxLength="350" [(ngModel)]="evenement.description" name="description"></ion-textarea>
-      <br>
-      &nbsp;Nombre de participants maximum (0 pour illimité)
-      <ion-input class="input" [(ngModel)]="evenement.nombreParticipantsMax" type="number" name="nombreParticipantsMax" value="evenement.nombreParticipantsMax"></ion-input>
-      <br>
-      <h2>Lieu</h2>
-      <br>
-      &nbsp; Code postal
-      <ion-input (input)="inputValidator($event)" class="input" [(ngModel)]="evenement.adresse.codePostal" maxLength="5"  name="lieu" (ionChange)="onCodePostalChange()"></ion-input>
-      <br>
-      &nbsp; Ville
-      <ion-select name="ville" [(ngModel)]="evenement.adresse.ville" placeholder="---">
-        <ion-select-option *ngFor="let commune of communesAssociees">{{commune.nom}}</ion-select-option>
-      </ion-select>
-      <br>
-      &nbsp; Rue
-      <ion-input class="input" [(ngModel)]="evenement.adresse.rue" name="lieu"></ion-input>
-      <br>
-      &nbsp; Date et heure
-      <ion-datetime class="input" [(ngModel)]="evenement.dateEvenement" displayFormat="DD/MM/YYYY, HH:mm" pickerFormat="DD/MM/YYYY, HH:mm" [min]="minDate" [max]="maxDate" name="dateEvenement"></ion-datetime>
-      <br>
+    <ion-grid style="height: 100%; display: flex">
+      <ion-row  style="flex: 1 1 auto; justify-content: center; ">
+        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12" class="container">
+          <br>
+          <h3>Détails</h3>
+          <br>
+          &nbsp; Titre
+          <ion-input class="input" type="text" [(ngModel)]="evenement.titre" name="title"></ion-input>
+          <br>
+          &nbsp; Description (350 caractères max)
+          <ion-textarea class="input" maxLength="350" [(ngModel)]="evenement.description" name="description">
+          </ion-textarea>
+          <br>
+          &nbsp;Nombre de participants maximum (0 pour illimité)
+          <ion-input class="input" [(ngModel)]="evenement.nombreParticipantsMax" type="number"
+            name="nombreParticipantsMax" value="evenement.nombreParticipantsMax"></ion-input>
+          <br>
+          <h3>Lieu</h3>
+          <br>
+          &nbsp; Code postal
+          <ion-input (input)="inputValidator($event)" class="input" [(ngModel)]="evenement.adresse.codePostal"
+            maxLength="5" name="lieu" (ionChange)="onCodePostalChange()"></ion-input>
+          <br>
+          &nbsp; Ville
+          <ion-select name="ville" [(ngModel)]="evenement.adresse.ville" placeholder="---">
+            <ion-select-option *ngFor="let commune of communesAssociees">{{commune.nom}}</ion-select-option>
+          </ion-select>
+          <br>
+          &nbsp; Rue
+          <ion-input class="input" [(ngModel)]="evenement.adresse.rue" name="lieu"></ion-input>
+          <br>
+          &nbsp; Date et heure
+          <ion-datetime class="input" [(ngModel)]="evenement.dateEvenement" displayFormat="DD/MM/YYYY, HH:mm"
+            pickerFormat="DD/MM/YYYY, HH:mm" [min]="minDate" [max]="maxDate" name="dateEvenement"></ion-datetime>
+          <br>
 
-    <ion-button style="border-bottom: solid 1px rgb(184, 213, 255);"expand="full" (click)="createEvent()" block>Créer <ion-icon name="add"></ion-icon></ion-button>
+          <ion-button style="border-bottom: solid 1px rgb(184, 213, 255);" expand="full" (click)="createEvent()" block>
+            Créer <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </form>
 </ion-content>
