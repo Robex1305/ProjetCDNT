@@ -32,16 +32,6 @@ export class EvenementService {
     }
 
     public createEvenement(evenement: Evenement) {
-        //TODO
-        //TEMP
-        evenement.statut = EnumStatut.PUBLIC;
-        evenement.image = "zob.png";
-        evenement.dateCreation = new Date();
-        evenement.adresse.pays = "FRANCE";
-        evenement.geolocalisation.latitude = "5161.02";
-        evenement.geolocalisation.longitude = "7867.57";
-        evenement.geolocalisation.libelle = "ICI";
-        //FIN TEMP  
         const url = this.baseURL + "/create";
         let token = localStorage.getItem("token");
         
@@ -68,6 +58,7 @@ export class EvenementService {
             headers: {"token": token}
         });
     }
+    
     public readAll() {
         let token = localStorage.getItem("token");
         return this.httpClient.get<Evenement[]>(this.baseURL + "/readAll", {

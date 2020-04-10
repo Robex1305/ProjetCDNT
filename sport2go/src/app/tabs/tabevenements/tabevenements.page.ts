@@ -30,7 +30,7 @@ import {
 import {
   EvenementService,
 } from 'src/services/EvenementService';
-import { DateService } from 'src/services/DateService';
+import { DateUtil } from 'src/util/DateUtil';
 import { Popup } from 'src/util/Popup';
 
 @Component({
@@ -47,7 +47,7 @@ export class TabevenementsPage {
     public events: Events,
     public evenementService: EvenementService,
     public loadingController:LoadingController,
-    public dateService:DateService,
+    public dateUtil:DateUtil,
     public popup:Popup) {
     //Listener d'event "Nouvel evenement crée"
     this.events.subscribe('nouvelEvenement:created', (evenement) => {

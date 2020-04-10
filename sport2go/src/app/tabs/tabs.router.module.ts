@@ -8,7 +8,7 @@ import {
 import {
   TabsPage
 } from './tabs.page';
-import { Guardian } from 'src/services/Guardian';
+import { Guardian } from 'src/util/Guardian';
 
 const routes: Routes = [{
     path: '',

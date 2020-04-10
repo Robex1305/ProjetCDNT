@@ -9,6 +9,7 @@ const routes: Routes = [
   {
     path: '',
     component: TabevenementsPage
+    
   }
 ];
 
@@ -17,7 +18,7 @@ const routes: Routes = [
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild([{ path: '', component: TabevenementsPage }])
+    RouterModule.forChild(routes)
   ],
   declarations: [TabevenementsPage]
 })

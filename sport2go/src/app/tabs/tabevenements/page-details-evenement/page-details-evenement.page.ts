@@ -26,8 +26,8 @@ import {
   EventEmitter
 } from 'protractor';
 import {
-  DateService
-} from 'src/services/DateService';
+  DateUtil
+} from 'src/util/DateUtil';
 import {
   Popup
 } from 'src/util/Popup';
@@ -52,7 +52,7 @@ export class PageDetailsEvenementPage implements OnInit {
     public toastController: ToastController,
     public alertCtrl: AlertController,
     public popup: Popup,
-    public dateService: DateService) {}
+    public dateUtil: DateUtil) {}
 
   ngOnInit() {
     this.loaded = false;
