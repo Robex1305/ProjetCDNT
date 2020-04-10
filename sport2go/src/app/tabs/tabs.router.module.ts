@@ -18,27 +18,27 @@ const routes: Routes = [{
       {
         path: 'home',
         loadChildren: () =>
-          import('../tabhome/tabhome.module').then(m => m.TabhomePageModule)
+          import('./tabhome/tabhome.module').then(m => m.TabhomePageModule)
       },
       {
         path: 'evenements',
         loadChildren: () =>
-          import('../tabEvenements/tabEvenements.module').then(m => m.TabEvenementsPageModule)
+          import('./tabevenements/tabevenements.module').then(m => m.TabevenementsPageModule)
       },
       {
         path: 'mes-evenements',
         loadChildren: () =>
-          import('../tabEvenements/tabmesevenements/tabmesevenements.module').then(m => m.TabmesevenementsPageModule)
+          import('./tabmesevenements/tabmesevenements.module').then(m => m.TabmesevenementsPageModule)
       },
       {
         path: 'messagerie',
         loadChildren: () =>
-          import('../tabmessages/tabmessages.module').then(m => m.TabmessagesPageModule)
+          import('./tabmessages/tabmessages.module').then(m => m.TabmessagesPageModule)
       },
       {
         path: 'social',
         loadChildren: () =>
-          import('../tabsocial/tabsocial.module').then(m => m.TabsocialPageModule)
+          import('./tabsocial/tabsocial.module').then(m => m.TabsocialPageModule)
       }
     ]
   }

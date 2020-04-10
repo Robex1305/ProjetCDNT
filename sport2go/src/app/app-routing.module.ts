@@ -19,23 +19,27 @@ const routes: Routes = [{
       },
       {
         path: 'home',
-        loadChildren: () => import('./tabhome/tabhome.module').then(m => m.TabhomePageModule),
+        loadChildren: () => import('./tabs/tabhome/tabhome.module').then(m => m.TabhomePageModule),
       },
       {
         path: 'social',
-        loadChildren: () => import('./tabsocial/tabsocial.module').then(m => m.TabsocialPageModule)
+        loadChildren: () => import('./tabs/tabsocial/tabsocial.module').then(m => m.TabsocialPageModule)
       },
       {
         path: 'evenements/details/:evenementId',
-        loadChildren: () => import('./pages/page-details-evenement/page-details-evenement.module').then(m => m.PageDetailsEvenementPageModule)
+        loadChildren: () => import('./tabs/tabevenements/page-details-evenement/page-details-evenement.module').then(m => m.PageDetailsEvenementPageModule)
       },
       {
         path: 'evenements/new',
-        loadChildren: () => import('./pages/page-nouvel-evenement/page-nouvel-evenement.module').then(m => m.PageNouvelEvenementPageModule),
+        loadChildren: () => import('./tabs/tabevenements/page-nouvel-evenement/page-nouvel-evenement.module').then(m => m.PageNouvelEvenementPageModule),
       },
       {
         path: 'evenements',
-        loadChildren: () => import('./tabEvenements/tabEvenements.module').then(m => m.TabEvenementsPageModule)
+        loadChildren: () => import('./tabs/tabevenements/tabevenements.module').then(m => m.TabevenementsPageModule)
+      },
+      {
+        path: 'mes-evenements',
+        loadChildren: () => import('./tabs/tabmesevenements/tabmesevenements.module').then(m => m.TabmesevenementsPageModule)
       },
 
     ]

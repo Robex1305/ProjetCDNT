@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TabEvenementsPage } from './tabEvenements.page';
+import { TabevenementsPage } from './tabevenements.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: TabEvenementsPage
+    component: TabevenementsPage
   }
 ];
 
@@ -17,10 +17,10 @@ const routes: Routes = [
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild([{ path: '', component: TabEvenementsPage }])
+    RouterModule.forChild([{ path: '', component: TabevenementsPage }])
   ],
-  declarations: [TabEvenementsPage]
+  declarations: [TabevenementsPage]
 })
 
 
-export class TabEvenementsPageModule {}
+export class TabevenementsPageModule {}

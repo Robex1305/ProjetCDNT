@@ -5,7 +5,7 @@ import {
 
 import {
   Evenement
-} from '../../models/classes/Evenement'
+} from '../../../models/classes/Evenement'
 import {
   Geolocalisation
 } from 'src/models/classes/Geolocalisation';
@@ -26,7 +26,7 @@ import {
 } from '@angular/common'
 import {
   TabmesevenementsPage
-} from './tabmesevenements/tabmesevenements.page';
+} from '../tabmesevenements/tabmesevenements.page';
 import {
   EvenementService,
 } from 'src/services/EvenementService';
@@ -34,11 +34,11 @@ import { DateService } from 'src/services/DateService';
 import { Popup } from 'src/util/Popup';
 
 @Component({
-  selector: 'app-tabEvenements',
-  templateUrl: 'tabEvenements.page.html',
-  styleUrls: ['tabEvenements.page.scss']
+  selector: 'app-tabevenements',
+  templateUrl: 'tabevenements.page.html',
+  styleUrls: ['tabevenements.page.scss']
 })
-export class TabEvenementsPage {
+export class TabevenementsPage {
   public listEvenements: Array < Evenement > ;
   public tmp_idSuite = 0;
   public loaderToShow : any;
