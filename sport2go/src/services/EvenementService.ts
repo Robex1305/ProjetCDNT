@@ -20,21 +20,28 @@ import {
 import {
     ApiGeoGouvService
 } from './ApiGeoGouvService';
+import { environment } from 'src/environments/environment';
+import { Geolocalisation } from 'src/models/classes/Geolocalisation';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class EvenementService {
-    public baseURL = "http://localhost:8000/evenements";
+    public baseURL;
     public constructor(private httpClient: HttpClient, public events: Events, public apiGeoGouvService: ApiGeoGouvService) {
-        
+        this.baseURL = environment.urlAPI + "/evenements"
     }
 
     public createEvenement(evenement: Evenement) {
         const url = this.baseURL + "/create";
         let token = localStorage.getItem("token");
-        
+        let geo = new Geolocalisation();
+        geo.latitude = 123456789.0;
+        geo.longitude = 987654321.0;
+        geo.libelle = "ABCDEFGHIJK"
+        evenement.geolocalisation = geo;
+
         return this.httpClient.post(url, evenement, {
             responseType: 'text',
             headers: {"token": token}

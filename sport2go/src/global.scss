@@ -67,3 +67,23 @@ form {
 .toast {
     text-align: center;
 }
+
+ion-list{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    background: none !important;
+    padding: auto;
+    margin: 0;
+    list-style: none;
+}
+
+ion-list > ion-item {
+    flex: 1 1 auto;
+    height: auto;
+    margin: 2px 2px 2px 2px;
+}
+
+ion-item >  .item-inner {
+    border: unset !important;
+}

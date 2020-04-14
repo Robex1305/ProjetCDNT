@@ -70,16 +70,18 @@ export class PageNouvelEvenementPage implements OnInit {
   public createEvent(){
     //On vérifie la validité des informations rentrées dans l'évenement
     let check = this.validationEvenement();
-
+    this.popUp.showLoaderCustom("Création de l'évenement...")
 
     if(check){
       this.evenementService.createEvenement(this.evenement).subscribe((evenement) => {
           this.evenement = JSON.parse(JSON.stringify(evenement));
           this.events.publish("nouvelEvenement:created",this.evenement);
-          this.popUp.showLoaderCustom("Évènement \"" + this.evenement.titre + "\" créé avec succès")
+          this.popUp.showMessage("Évènement \"" + this.evenement.titre + "\" créé avec succès")
           this.goToEvents();
+          this.popUp.hideLoader()
         }, (err) => {
-          this.popUp.showLoaderCustom("Une erreur est survenue lors de la création de l'évenement, veuillez réessayer plus tard.")
+          this.popUp.showMessage("Une erreur est survenue lors de la création de l'évenement, veuillez réessayer plus tard.")
+          this.popUp.hideLoader()
           console.log(err);
         });
       }

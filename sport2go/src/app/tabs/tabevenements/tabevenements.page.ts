@@ -75,6 +75,9 @@ export class TabevenementsPage {
     this.evenementService.readAll().subscribe(data => {
       this.listEvenements = < Evenement[] > data;
       this.popup.hideLoader();
+    }, error => {
+      this.popup.showMessage("Une erreur est survenue lors de la récupération des événements, veuillez réessayer plus tard");
+      this.popup.hideLoader();
     });
   }
 

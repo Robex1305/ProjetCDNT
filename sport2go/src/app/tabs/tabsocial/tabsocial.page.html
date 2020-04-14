@@ -1,3 +1,9 @@
+  <ion-header>
+    <ion-toolbar text-center>
+      <ion-title>Groupes</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
   <ion-tabs>
     <ion-tab-bar slot="top">
       <ion-tab-button tab="main">
@@ -17,7 +23,7 @@
     <br><br><br>
     <ion-searchbar value="Rechercher un utilisateur/groupe"></ion-searchbar>
     <h3 class="ion-padding-start">Vos groupes</h3>
-    <ion-list>
+    <ion-list lines="none">
       <ion-item *ngFor="let group of groups_index">
         <ion-avatar slot="start">
           <img src="http://7wallpapers.net/wp-content/uploads/2016/05/20_Panda.jpg">
@@ -33,7 +39,7 @@
           </ion-label>
       </ion-item>
     </ion-list>
-    <div *ngIf="!groups_index.length > 0">
+    <div *ngIf="!isEmpty(groups_index)">
         <ion-item *ngFor="let item of [1,2,3,4]">
           <ion-avatar slot="start">
             <ion-skeleton-text animated></ion-skeleton-text>
@@ -53,8 +59,8 @@
       </div>
 
     <h3 class="ion-padding-start">Recommandations</h3>
-    <ion-list>
-        <ion-item *ngFor="let group of groups_recommendations">
+    <ion-list lines="none">
+        <ion-item *ngFor="let group of groups_recommandations">
           <ion-avatar slot="start">
             <img src="http://7wallpapers.net/wp-content/uploads/2016/05/20_Panda.jpg">
           </ion-avatar>
@@ -69,7 +75,7 @@
             </ion-label>
         </ion-item>
       </ion-list>
-      <div *ngIf="!groups_recommendations.length > 0">
+      <div *ngIf="!isEmpty(groups_recommandations)">
           <ion-item *ngFor="let item of [1,2]">
             <ion-avatar slot="start">
               <ion-skeleton-text animated></ion-skeleton-text>
