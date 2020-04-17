@@ -18,30 +18,13 @@ const routes: Routes = [{
         loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
       },
       {
-        path: 'home',
-        loadChildren: () => import('./tabs/tabhome/tabhome.module').then(m => m.TabhomePageModule),
-      },
-      {
-        path: 'social',
-        loadChildren: () => import('./tabs/tabsocial/tabsocial.module').then(m => m.TabsocialPageModule)
-      },
-      {
         path: 'evenements/details/:evenementId',
         loadChildren: () => import('./tabs/tabevenements/page-details-evenement/page-details-evenement.module').then(m => m.PageDetailsEvenementPageModule)
       },
       {
         path: 'evenements/new',
         loadChildren: () => import('./tabs/tabevenements/page-nouvel-evenement/page-nouvel-evenement.module').then(m => m.PageNouvelEvenementPageModule),
-      },
-      {
-        path: 'evenements',
-        loadChildren: () => import('./tabs/tabevenements/tabevenements.module').then(m => m.TabevenementsPageModule)
-      },
-      {
-        path: 'mes-evenements',
-        loadChildren: () => import('./tabs/tabmesevenements/tabmesevenements.module').then(m => m.TabmesevenementsPageModule)
-      },
-
+      }
     ]
   },
   {

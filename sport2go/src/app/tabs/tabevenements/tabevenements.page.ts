@@ -40,8 +40,8 @@ import { Popup } from 'src/util/Popup';
 })
 export class TabevenementsPage {
   public listEvenements: Array < Evenement > ;
-  public tmp_idSuite = 0;
   public loaderToShow : any;
+  
   //Ajout de listener a l'initialisation de la page
   public constructor(public routeur:Router,
     public events: Events,
@@ -66,13 +66,14 @@ export class TabevenementsPage {
   //Trie les évenement selon la date
   public trier() {
     this.listEvenements.sort(function (a, b) {
-      return b.dateEvenement.getTime() - a.dateEvenement.getTime();
+      return b.debut.getTime() - a.debut.getTime();
     })
   }
 
    ngOnInit() {
     this.popup.showLoader();
     this.evenementService.readAll().subscribe(data => {
+      console.log(data[0])
       this.listEvenements = < Evenement[] > data;
       this.popup.hideLoader();
     }, error => {

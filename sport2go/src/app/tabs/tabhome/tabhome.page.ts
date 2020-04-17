@@ -5,6 +5,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { EnumSexe } from 'src/models/enums/EnumSexe';
 import { AuthenticationService } from 'src/services/AuthenticationService';
 import { Popup } from 'src/util/Popup';
+import { SessionManager } from 'src/util/SessionManager';
 
 @Component({
   selector: 'app-tabhome',
@@ -15,14 +16,14 @@ export class TabhomePage implements OnInit {
   public user : Utilisateur;
   public hello : String; 
 
-  constructor(public navController: NavController, public router:Router, public authService:AuthenticationService, public popUp:Popup) { }
+  constructor(public navController: NavController, public router:Router, public sessionManager:SessionManager, public authService:AuthenticationService, public popUp:Popup) { }
 
   ngOnInit() {
     
   }
 
   public logout(){
-    this.authService.destroySession();
+    this.sessionManager.destroy();
     this.router.navigateByUrl("login");
     this.popUp.showMessage("Déconnecté")
   }

@@ -22,6 +22,7 @@ import {
 } from './ApiGeoGouvService';
 import { environment } from 'src/environments/environment';
 import { Geolocalisation } from 'src/models/classes/Geolocalisation';
+import { SessionManager } from 'src/util/SessionManager';
 
 @Injectable({
     providedIn: 'root'
@@ -29,31 +30,36 @@ import { Geolocalisation } from 'src/models/classes/Geolocalisation';
 
 export class EvenementService {
     public baseURL;
-    public constructor(private httpClient: HttpClient, public events: Events, public apiGeoGouvService: ApiGeoGouvService) {
+    public constructor(private httpClient: HttpClient, public events: Events, public sessionManager:SessionManager, public apiGeoGouvService: ApiGeoGouvService) {
         this.baseURL = environment.urlAPI + "/evenements"
     }
 
     public createEvenement(evenement: Evenement) {
         const url = this.baseURL + "/create";
-        let token = localStorage.getItem("token");
+        let token = this.sessionManager.get("token");
         let geo = new Geolocalisation();
         geo.latitude = 123456789.0;
         geo.longitude = 987654321.0;
         geo.libelle = "ABCDEFGHIJK"
         evenement.geolocalisation = geo;
 
+        evenement.adresse.pays = "FRANCE";
+      
+
+        console.log(JSON.stringify(evenement));
         return this.httpClient.post(url, evenement, {
             responseType: 'text',
-            headers: {"token": token}
+            headers: {"Authorization": token}
         });
     }
 
     public read(id: number) {
-        const url = this.baseURL + "/read/" + id;
-        let token = localStorage.getItem("token");
-        
-        return this.httpClient.get<Evenement>(url, {
-            headers: {"token": token}
+        const url = this.baseURL + "/read?id=" + id;
+        let token = this.sessionManager.get("token");
+        console.log("URL: " + url);
+        console.log("ID: " + id)
+        return this.httpClient.get<Evenement>(url,{
+            headers: {"Authorization": token}
         })
     }
 
@@ -62,14 +68,14 @@ export class EvenementService {
         let token = localStorage.getItem("token");
 
         return this.httpClient.delete(url, {
-            headers: {"token": token}
+            headers: {"Authorization": token}
         });
     }
     
     public readAll() {
-        let token = localStorage.getItem("token");
+        let token = this.sessionManager.get("token");
         return this.httpClient.get<Evenement[]>(this.baseURL + "/readAll", {
-            headers: {"token": token}
+            headers: {"Authorization": token}
         });
     }
 }

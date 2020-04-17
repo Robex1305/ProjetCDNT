@@ -24,7 +24,7 @@
           <h4>
             <ion-icon name="calendar"></ion-icon>
           </h4>
-            {{dateUtil.formateDate(evenement.dateEvenement)}}
+            {{dateUtil.formateDate(evenement.debut)}}
           
 
         </ion-col>
@@ -33,7 +33,7 @@
           <h4>
             <ion-icon name="clock"></ion-icon>
           </h4>
-            {{dateUtil.formateHeure(evenement.dateEvenement)}}
+            {{dateUtil.formateHeure(evenement.date)}} → {{dateUtil.formateHeure(evenement.fin)}}
           
         </ion-col>
 

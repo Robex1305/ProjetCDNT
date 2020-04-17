@@ -1,14 +1,15 @@
 import { Geolocalisation } from './Geolocalisation';
 import { Adresse } from './Adresse';
 import { Utilisateur } from './Utilisateur';
+import { Groupe } from './Groupe';
 
 export class Evenement {
     public id : number;
     public titre : string;
     public description : string;
     public nombreParticipantsMax : number;
-    public dateCreation : Date;
-    public dateEvenement : Date;
+    public debut : Date;
+    public fin : Date;
     public statut : String;
     public adresse : Adresse;
     public geolocalisation : Geolocalisation;
@@ -16,12 +17,13 @@ export class Evenement {
     public participants : Array<Utilisateur>;
     public limiteParticipants : number;
     public image : string;
-    public dateEvenementFormatee: string;
-    public heureEvenementFormatee: string;
+    public groupe : Groupe;
 
     public constructor() {
       this.adresse = new Adresse();
       this.geolocalisation = new Geolocalisation(); 
+      this.groupe = new Groupe();
+      this.groupe.membres = new Array<Utilisateur>();
       this.nombreParticipantsMax = 0;
     }
 

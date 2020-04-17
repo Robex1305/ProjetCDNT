@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar text-center>
     <ion-title>Créer un évenement</ion-title>
-    <ion-icon slot="start" name="arrow-back" (click)="goToEvents()" style="margin-left: 2%;"></ion-icon>
+    <ion-icon slot="start" name="arrow-back" (click)="goBack()" style="margin-left: 2%;"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -35,12 +35,16 @@
             <ion-select-option *ngFor="let commune of communesAssociees">{{commune.nom}}</ion-select-option>
           </ion-select>
           <br>
-          &nbsp; Rue
-          <ion-input class="input" [(ngModel)]="evenement.adresse.rue" name="lieu"></ion-input>
+          &nbsp; Adresse
+          <ion-input placeholder="ex: 123 Bis rue Nationale"class="input" [(ngModel)]="evenement.adresse.adresse" name="lieu"></ion-input>
           <br>
-          &nbsp; Date et heure
-          <ion-datetime class="input" [(ngModel)]="evenement.dateEvenement" displayFormat="DD/MM/YYYY, HH:mm"
-            pickerFormat="DD/MM/YYYY, HH:mm" [min]="minDate" [max]="maxDate" name="dateEvenement"></ion-datetime>
+          &nbsp; Date et heure de début
+          <ion-datetime class="input" [(ngModel)]="evenement.debut" displayFormat="DD/MM/YYYY, HH:mm"
+            pickerFormat="DD/MM/YYYY, HH:mm" [min]="minDate" [max]="maxDate" name="debut"></ion-datetime>
+          <br>
+          &nbsp; Date et heure de fin
+          <ion-datetime class="input" [(ngModel)]="evenement.fin" displayFormat="DD/MM/YYYY, HH:mm"
+            pickerFormat="DD/MM/YYYY, HH:mm" [min]="minDate" [max]="maxDate" name="fin"></ion-datetime>
           <br>
 
           <ion-button style="border-bottom: solid 1px rgb(184, 213, 255);" expand="full" (click)="createEvent()" block>

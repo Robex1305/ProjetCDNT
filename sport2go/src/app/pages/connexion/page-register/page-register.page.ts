@@ -53,7 +53,7 @@ export class PageRegisterPage implements OnInit {
         //TODO: mail de vérification
         this.popup.hideLoader()
       }, (err) => {
-        this.popup.showMessage("Une erreur est survenue lors de la création de votre copte. Veuillez réessayer plus tard")
+        this.popup.showMessage("Une erreur est survenue lors de la création de votre compte. Veuillez réessayer plus tard")
         console.log(err);
         this.popup.hideLoader()
       })

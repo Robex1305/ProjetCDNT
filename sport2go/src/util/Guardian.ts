@@ -2,13 +2,14 @@ import { CanActivate, ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTr
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '../services/AuthenticationService';
 import { Observable } from 'rxjs';
+import { SessionManager } from './SessionManager';
 
 @Injectable({
     providedIn: 'root'
 })
 export class Guardian implements CanActivate {
 
-  constructor(private authService: AuthenticationService, private router: Router) {
+  constructor(public sessionManager:SessionManager, private router: Router) {
     
   }
   
@@ -16,7 +17,7 @@ export class Guardian implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean>|Promise<boolean>|boolean {
-    let ok = this.authService.checkToken();
+    let ok = this.sessionManager.checkToken();
     if(ok){
       return true;
     }

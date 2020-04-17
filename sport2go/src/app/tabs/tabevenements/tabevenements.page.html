@@ -27,13 +27,13 @@
         <ion-card-content type="button" >
           <h3>
             <ion-icon name="calendar"></ion-icon>
-            {{dateUtil.formateDate(event.dateEvenement)}}
+            {{dateUtil.formateDate(event.debut)}}
           </h3>
     
     
           <h3>
             <ion-icon name="clock"></ion-icon>
-            {{dateUtil.formateHeure(event.dateEvenement)}}
+            {{dateUtil.formateHeure(event.debut)}} → {{dateUtil.formateHeure(event.fin)}}
           </h3>
     
     

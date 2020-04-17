@@ -20,28 +20,20 @@ export class AuthenticationService {
     public baseURL;
 
     public constructor(public httpClient: HttpClient) {
-        this.baseURL = environment.urlAPI + "/authentication";
+        this.baseURL = environment.urlAPI;
     }
 
     public checkCredential(login, password) {
         return this.httpClient.post(this.baseURL + "/login", {login, password});
     }
 
-    public destroySession(){
-        localStorage.clear();
+    public getToken(login, password){
+        return this.httpClient.post(this.baseURL + "/login_check", {"username":login, "password":password})
     }
+
 
     public register(utilisateur:Utilisateur) {
         return this.httpClient.post(this.baseURL + "/register", utilisateur);
     }
 
-    public checkToken():boolean {
-        let token = localStorage.getItem("token");
-        if(token !== null){
-            return true;
-        }
-        else{
-           return false;
-        }
-    }
 }

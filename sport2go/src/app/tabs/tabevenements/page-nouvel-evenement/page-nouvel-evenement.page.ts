@@ -14,6 +14,9 @@ import { Departement } from 'src/models/classes/DTO/gouv/Departement';
 import { ApiGeoGouvService } from 'src/services/ApiGeoGouvService';
 import { EvenementService } from 'src/services/EvenementService';
 import { Popup } from 'src/util/Popup';
+import { SessionManager } from 'src/util/SessionManager';
+import { Location } from '@angular/common';
+import { Conversation } from 'src/models/classes/Conversation';
 
 @Component({
   selector: 'app-page-nouvel-evenement',
@@ -26,20 +29,21 @@ import { Popup } from 'src/util/Popup';
 */
 export class PageNouvelEvenementPage implements OnInit {
   public evenement : Evenement;
-  public dateEvenement : Date;
   public communesAssociees : Array<Commune>;
+  public loaded = false;
   toast : any;
-
+  
   
 
   constructor(
               public apiGeoGouvService : ApiGeoGouvService,
               public evenementService : EvenementService,
-              public navController : NavController,
+              public location : Location,
               public events : Events,
               public toastController: ToastController,
               public httpClient : HttpClient,
               private changeRef: ChangeDetectorRef,
+              public sessionManager:SessionManager,
               public popUp : Popup) {
   }
 
@@ -64,20 +68,32 @@ export class PageNouvelEvenementPage implements OnInit {
     this.evenement = new Evenement();
     this.evenement.adresse = new Adresse();
     this.evenement.geolocalisation = new Geolocalisation();
+
     this.changeRef.detectChanges();
+    this.loaded = true;
   }
 
   public createEvent(){
     //On vérifie la validité des informations rentrées dans l'évenement
     let check = this.validationEvenement();
-    this.popUp.showLoaderCustom("Création de l'évenement...")
+   
+    this.evenement.groupe.nom = this.evenement.titre;
+    this.evenement.groupe.description = this.evenement.description;
+    this.evenement.groupe.admin = this.sessionManager.getCurrentUser();
+    
+    this.evenement.groupe.conversation = new Conversation();
+    this.evenement.groupe.conversation.titre = this.evenement.titre;
+    this.evenement.groupe.conversation.addMembre(this.sessionManager.getCurrentUser());
+
+    this.evenement.createur = this.sessionManager.getCurrentUser();
 
     if(check){
+      this.popUp.showLoaderCustom("Création de l'évenement...")
       this.evenementService.createEvenement(this.evenement).subscribe((evenement) => {
           this.evenement = JSON.parse(JSON.stringify(evenement));
           this.events.publish("nouvelEvenement:created",this.evenement);
           this.popUp.showMessage("Évènement \"" + this.evenement.titre + "\" créé avec succès")
-          this.goToEvents();
+          this.goBack();
           this.popUp.hideLoader()
         }, (err) => {
           this.popUp.showMessage("Une erreur est survenue lors de la création de l'évenement, veuillez réessayer plus tard.")
@@ -112,12 +128,16 @@ export class PageNouvelEvenementPage implements OnInit {
       messageToast = "Le titre doit faire au moins 5 lettres"
       check = false
     }
-    else if(isNaN(new Date(e.dateEvenement).getTime())){
-      messageToast = "Veuillez saisir une date pour l'événement"
+    else if(isNaN(new Date(e.debut).getTime())){
+      messageToast = "Veuillez saisir une date de début pour l'événement"
       check = false
     }
-    else if(e.adresse.rue === undefined || e.adresse.rue === ''){
-      messageToast = "La rue de l'événement n'est pas défini"
+    else if(isNaN(new Date(e.fin).getTime())){
+      messageToast = "Veuillez saisir une date de fin pour l'événement"
+      check = false
+    }
+    else if(e.adresse.adresse === undefined || e.adresse.adresse === ''){
+      messageToast = "L'adresse de l'événement n'est pas défini"
       check = false
     }
     else if(e.adresse.ville === undefined || e.adresse.ville === ''){
@@ -129,7 +149,7 @@ export class PageNouvelEvenementPage implements OnInit {
     }
 
     if(!check){
-      this.popUp.showLoaderCustom(messageToast);
+      this.popUp.showMessage(messageToast);
     }
     return check;
   }
@@ -144,7 +164,7 @@ export class PageNouvelEvenementPage implements OnInit {
     }
   }
 
-  public goToEvents(){
-    this.navController.back();
+  public goBack(){
+    this.location.back();
   }
 }
