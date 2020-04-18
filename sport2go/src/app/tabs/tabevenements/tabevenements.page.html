@@ -8,40 +8,38 @@
 
 
 <ion-content>
-  <ion-card class="container" *ngFor="let event of listEvenements" (click)="onCardClick(event)">
-      <ion-card-header [color]="event.color">
-          <ion-row style="height: auto;">
-    
-            <ion-col style="vertical-align: middle;" >
-              {{event.titre}}
-            </ion-col>
-    
-            <ion-col>
-                <ion-icon name="{{event.icon}}" style="margin-left: 80%; height: 1.2rem; width: 1.2rem; position: relative"></ion-icon>
-            </ion-col>
-    
-          </ion-row>
-    
-        </ion-card-header>
-    
-        <ion-card-content type="button" >
-          <h3>
+
+  <ion-list lines="none">
+    <ion-item *ngFor="let event of listEvenements" (click)="onCardClick(event)">
+      <ion-avatar slot="start">
+        <img src="{{event.image}}">
+      </ion-avatar>
+        <ion-label>
+
+          <h2 style="vertical-align: middle;">
+            {{event.titre}}
+          </h2>
+
+          <br>
+
+          <p>
             <ion-icon name="calendar"></ion-icon>
             {{dateUtil.formateDate(event.debut)}}
-          </h3>
-    
-    
-          <h3>
+          </p>
+
+
+          <p>
             <ion-icon name="clock"></ion-icon>
             {{dateUtil.formateHeure(event.debut)}} → {{dateUtil.formateHeure(event.fin)}}
-          </h3>
-    
-    
-          <h3>
+          </p>
+
+
+          <p>
             <ion-icon name="pin"></ion-icon>
             {{event.adresse.ville}}
-          </h3>
-        </ion-card-content>
+          </p>
 
-  </ion-card>
+        </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

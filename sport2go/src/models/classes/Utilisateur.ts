@@ -8,6 +8,8 @@ export class Utilisateur{
     public dateNaissance : Date;
     public email : string;
     public password : string;
+    public roles : Array<String>;
+    public sports : Array<Sport>;
     public constructor() {
     }
 

@@ -3,7 +3,7 @@ import { Utilisateur } from './Utilisateur';
 import { UrlResolver } from '@angular/compiler';
 
 export class Conversation{
-    public conversation_id : string;
+    public id : string;
     public titre : string;
     public date_creation : Date;
     public messages : Array<Message>;

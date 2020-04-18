@@ -65,7 +65,7 @@ export class EvenementService {
 
     public delete(id: number) {
         const url = this.baseURL + "/delete/" + id;
-        let token = localStorage.getItem("token");
+        let token = this.sessionManager.get("token");
 
         return this.httpClient.delete(url, {
             headers: {"Authorization": token}

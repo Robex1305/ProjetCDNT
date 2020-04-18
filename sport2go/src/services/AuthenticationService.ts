@@ -11,6 +11,7 @@ import {
     Utilisateur
 } from 'src/models/classes/Utilisateur';
 import { environment } from 'src/environments/environment';
+import { SessionManager } from 'src/util/SessionManager';
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +20,7 @@ import { environment } from 'src/environments/environment';
 export class AuthenticationService {
     public baseURL;
 
-    public constructor(public httpClient: HttpClient) {
+    public constructor(public httpClient: HttpClient, public sessionManager:SessionManager) {
         this.baseURL = environment.urlAPI;
     }
 
@@ -29,6 +30,16 @@ export class AuthenticationService {
 
     public getToken(login, password){
         return this.httpClient.post(this.baseURL + "/login_check", {"username":login, "password":password})
+    }
+
+    public checkToken(){
+        let token = this.sessionManager.get("token");
+        console.log(token)
+        return this.httpClient.get(this.baseURL + "/check_token", {
+            headers: {"Authorization": token}
+        });
+
+        
     }
 
 

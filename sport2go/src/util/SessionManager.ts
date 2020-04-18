@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Utilisateur } from 'src/models/classes/Utilisateur';
+import { Router } from '@angular/router';
+import { Popup } from './Popup';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -7,7 +9,7 @@ import { Utilisateur } from 'src/models/classes/Utilisateur';
 
 export class SessionManager{
     
-    public constructor(){
+    public constructor(public router:Router, public popup:Popup){
 
     }
 
@@ -27,27 +29,14 @@ export class SessionManager{
         return JSON.parse(localStorage.getItem(key));
     }
 
-    public getCurrentUser():Utilisateur{
-        return this.getObject("user");
+    public getCurrentUserId(){
+        return this.get("user");
     }
 
-    public setCurrentUser(user:Utilisateur){
-        return this.storeObject("user", user);
-    }
 
     
     public destroy(){
         localStorage.clear();
-    }
-    
-    public checkToken():boolean {
-        let token = this.get("token");
-        if(token !== null){
-            return true;
-        }
-        else{
-           return false;
-        }
     }
 
 }

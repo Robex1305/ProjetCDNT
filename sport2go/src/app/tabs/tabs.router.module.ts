@@ -14,6 +14,7 @@ const routes: Routes = [{
     path: '',
     component: TabsPage,
     canActivate: [Guardian],
+    canActivateChild: [Guardian],
     children: [
       {
         path: 'home',

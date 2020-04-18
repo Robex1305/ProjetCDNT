@@ -37,18 +37,18 @@ export class PageLogInPage implements OnInit {
   public constructor(public authService: AuthenticationService, public router: Router, public sessionManager: SessionManager, public popup: Popup) {}
 
   ngOnInit() {
-
+    this.authService.checkToken().subscribe(res => {
+      //Deja connecté, on redirige
+      this.router.navigateByUrl("home");
+    }, err => {
+      //Pas connecté, on ne redirige pas.
+    })
   }
 
   public login() {
     this.popup.showLoaderCustom("Connexion...");
     this.authService.checkCredential(this.username, this.password).subscribe((user) => {
-      let utilisateur = new Utilisateur();
-      utilisateur.id = user['id'];
-      utilisateur.nom = user['nom'];
-      utilisateur.prenom = user['prenom'];
-      utilisateur.email = user['email'];
-      this.sessionManager.setCurrentUser(utilisateur);
+      this.sessionManager.store("user", user['id']);
       
         this.authService.getToken(this.username, this.password).subscribe(data => {
           let token =  "Bearer " + data['token'];
@@ -58,7 +58,6 @@ export class PageLogInPage implements OnInit {
             replaceUrl: true
           });
           this.popup.hideLoader();
-          this.popup.showMessage("Connecté!");
         })
       },
       (error) => {
@@ -67,8 +66,8 @@ export class PageLogInPage implements OnInit {
         } else {
           this.popup.showMessage("Une erreur est survenue, veuillez réessayer plus tard")
         }
-        this.sessionManager.destroy();
         this.popup.hideLoader();
+        this.sessionManager.destroy();
       });
 
   }

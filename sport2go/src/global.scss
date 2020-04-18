@@ -68,7 +68,7 @@ form {
     text-align: center;
 }
 
-ion-list{
+ion-list {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
@@ -78,8 +78,8 @@ ion-list{
     list-style: none;
 }
 
-ion-list > ion-item {
-    flex: 1 1 auto;
+ion-list  > ion-item {
+    flex: 1 1 400px;
     height: auto;
     margin: 2px 2px 2px 2px;
 }
