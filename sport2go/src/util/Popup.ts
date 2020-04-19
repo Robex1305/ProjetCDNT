@@ -22,47 +22,6 @@ export class Popup {
 
     }
 
-    async promptOuiNon(header: string, message: string, fonctionOui: Function, loader: boolean, fonctionNon ? : Function, toast ? : HTMLIonToastElement) {
-        const alert = await this.alertController.create({
-            header: header,
-            message: message,
-            buttons: [{
-                    text: 'Non',
-                    handler: async () => {
-                        if (loader) {
-                            this.showLoader();
-                        }
-                        if (fonctionNon != null) {
-                            await Function.call(fonctionNon, fonctionNon.arguments);
-                        }
-                        if (loader) {
-                            this.hideLoader();
-                        }
-                        if (toast !== null) {
-                            toast.present();
-                        }
-
-                    }
-                },
-                {
-                    text: 'Oui',
-                    handler: async () => {
-                        if (loader) {
-                            this.showLoader();
-                        }
-
-                        await Function.call(fonctionOui, fonctionOui.arguments);
-
-                        if (loader) {
-                            this.hideLoader();
-                        }
-                    }
-                }
-            ]
-        })
-        alert.present();
-    }
-
     public showLoader() {
         this.showLoaderCustom("Merci de patienter...")
     }

@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar>
-      <ion-button routerLink="/evenements" routerDirection='root'>
+      <ion-button routerLink="../../" routerDirection='root'>
         <ion-icon name="arrow-back" color="black"></ion-icon>
         Retour
       </ion-button>
 
-      <ion-icon name="trash" slot="end" (click)="delete()"></ion-icon>
+      <ion-icon *ngIf="loaded && isCreateur()" name="trash" slot="end" (click)="delete()"  ></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -57,7 +57,7 @@
 
      <ion-row>
         <ion-col>
-            <img src="/assets/eventImageExemple.jpg"/>
+            <img src="{{evenement.image}}"/>
         </ion-col>
       </ion-row>
 

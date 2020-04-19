@@ -10,12 +10,10 @@ export class Evenement {
     public nombreParticipantsMax : number;
     public debut : Date;
     public fin : Date;
-    public statut : String;
     public adresse : Adresse;
     public geolocalisation : Geolocalisation;
     public createur : Utilisateur;
     public participants : Array<Utilisateur>;
-    public limiteParticipants : number;
     public image : string;
     public groupe : Groupe;
 

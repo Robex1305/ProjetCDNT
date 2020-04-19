@@ -64,6 +64,7 @@ import {
 } from 'src/models/classes/Conversation';
 import { Utilisateur } from 'src/models/classes/Utilisateur';
 import { UtilisateurService } from 'src/services/UtilisateurService';
+import { error } from 'util';
 
 @Component({
   selector: 'app-page-nouvel-evenement',
@@ -86,7 +87,7 @@ export class PageNouvelEvenementPage implements OnInit {
     public apiGeoGouvService: ApiGeoGouvService,
     public evenementService: EvenementService,
     public utilisateurService: UtilisateurService,
-    public location: Location,
+    public router:Router,
     public events: Events,
     public toastController: ToastController,
     public httpClient: HttpClient,
@@ -124,9 +125,10 @@ export class PageNouvelEvenementPage implements OnInit {
     //On vérifie la validité des informations rentrées dans l'évenement
     let check = this.validationEvenement();
     let userId = this.sessionManager.getCurrentUserId()
-    this.utilisateurService.read(parseInt(userId)).subscribe((user:Utilisateur) => {
+    let user = new Utilisateur();
+    user.id = parseInt(userId);
       this.evenement.createur = user;
-
+      this.evenement.image = "https://i.picsum.photos/id/"+ Math.round(Math.random() * 500) + "/200/300.jpg";
       this.evenement.groupe.nom = this.evenement.titre;
       this.evenement.groupe.description = this.evenement.description;
       this.evenement.groupe.admin = user;
@@ -137,19 +139,17 @@ export class PageNouvelEvenementPage implements OnInit {
 
       if (check) {
         this.popUp.showLoaderCustom("Création de l'évenement...")
-        this.evenementService.createEvenement(this.evenement).subscribe((evenement) => {
-          this.evenement = JSON.parse(JSON.stringify(evenement));
-          this.events.publish("nouvelEvenement:created", this.evenement);
+        this.evenementService.createEvenement(this.evenement).subscribe( (response) => {
           this.popUp.showMessage("Évènement \"" + this.evenement.titre + "\" créé avec succès")
-          this.goBack();
           this.popUp.hideLoader()
-        }, (err) => {
+          this.goBack();
+        }, (error) => {
+          console.log(error.status)
           this.popUp.showMessage("Une erreur est survenue lors de la création de l'évenement, veuillez réessayer plus tard.")
           this.popUp.hideLoader()
-          console.log(err);
+          console.log(error);
         });
       }
-    })
   }
 
   public onCodePostalChange() {
@@ -209,6 +209,6 @@ export class PageNouvelEvenementPage implements OnInit {
   }
 
   public goBack() {
-    this.location.back();
+    this.router.navigateByUrl("/evenements")
   }
 }

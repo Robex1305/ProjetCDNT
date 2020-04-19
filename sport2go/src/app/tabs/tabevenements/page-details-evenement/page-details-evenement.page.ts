@@ -31,6 +31,8 @@ import {
 import {
   Popup
 } from 'src/util/Popup';
+import { SessionManager } from 'src/util/SessionManager';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-page-details-evenement',
@@ -46,13 +48,15 @@ export class PageDetailsEvenementPage implements OnInit {
 
   public constructor(public loadingController: LoadingController,
     public evenementService: EvenementService,
+    public sessionManager:SessionManager,
     private route: ActivatedRoute,
     private router: Router,
     public events: Events,
     public toastController: ToastController,
     public alertCtrl: AlertController,
     public popup: Popup,
-    public dateUtil: DateUtil) {}
+    public dateUtil: DateUtil,
+    public alertController:AlertController) {}
 
   ngOnInit() {
     this.loaded = false;
@@ -65,33 +69,56 @@ export class PageDetailsEvenementPage implements OnInit {
             this.evenement = event;
             this.loaded = true;
           } else {
-            this.router.navigateByUrl("/evenements");
+            this.router.navigateByUrl("/../");
+            this.popup.showMessage("Une erreur est survenue lors de la récupération de l'évenement")
           }
         }, (err) => {
-          this.router.navigateByUrl("/evenements");
+          this.router.navigateByUrl("/../");
+          this.popup.showMessage("Une erreur est survenue lors de la récupération de l'évenement")
         });
       } else {
-        this.router.navigateByUrl("/evenements");
+        this.router.navigateByUrl("/../");
+        this.popup.showMessage("Une erreur est survenue lors de la récupération de l'évenement")
       }
     });
   }
 
+  public isCreateur(){
+    if(this.evenement.createur.id === parseInt(this.sessionManager.getCurrentUserId())){
+      return true;
+    }
+    else{
+      return false
+    }
+  }
 
-
-
-
-  async delete() {
-    this.popup.promptOuiNon(
-      "Attention",
-      "Etes vous sur de vouloir supprimer cet évenement?",
-      () => {
-        this.evenementService.delete(this.evenement.id).subscribe(() => {
-          this.events.publish("evenement:delete", this.evenement.id);
-          this.router.navigateByUrl("evenements");
-        });
-      },
-      true);
-
+  public async delete() {
+    const alert = await this.alertController.create({
+      header: "Attention",
+      message: "Êtes-vous sûr de vouloir supprimer cet évenement?",
+      buttons: [{
+              text: 'Non',
+          },
+          {
+              text: 'Oui',
+              handler: () => {
+                this.popup.showLoader();
+                this.evenementService.delete(this.evenement.id).subscribe(response => {
+                  console.log("COUCOUMABITELOL")
+                }, error => {
+                  this.popup.hideLoader();
+                  this.popup.showMessage("Une erreur est survenue lors de la suppression de l'évenement")
+                }, () => {
+                  this.popup.hideLoader();
+                  this.popup.showMessage("L'évenement a été supprimé");
+                  this.events.publish("evenement:created", this.evenement)
+                  this.router.navigateByUrl("/../../");
+                });
+              }
+          }
+      ]
+  })
+  alert.present();
   }
 
 }

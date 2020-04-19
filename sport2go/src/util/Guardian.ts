@@ -44,13 +44,13 @@ export class Guardian implements CanActivate, CanActivateChild {
     
     this.popup.showLoaderCustom("Chargement...");
     if(this.sessionManager.get('token') === null){
-      this.popup.showMessage("Votre session a expirée, veuillez vous reconnecter")
       return false;
     }
     return this.authService.checkToken().toPromise().then(() => {
       this.popup.hideLoader();
       return true;
     }).catch((err:Response) => {
+      this.sessionManager.destroy();
       console.log(err.status)
       if(err.status === 401){
         this.popup.showMessage("Votre session a expirée, veuillez vous reconnecter")

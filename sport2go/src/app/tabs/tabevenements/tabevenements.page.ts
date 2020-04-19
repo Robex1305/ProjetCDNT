@@ -50,7 +50,7 @@ export class TabevenementsPage {
     public dateUtil:DateUtil,
     public popup:Popup) {
     //Listener d'event "Nouvel evenement crée"
-    this.events.subscribe('nouvelEvenement:created', (evenement) => {
+    this.events.subscribe('evenement:created', (evenement) => {
       this.listEvenements.push(evenement);
       this.trier();
     });
@@ -66,14 +66,13 @@ export class TabevenementsPage {
   //Trie les évenement selon la date
   public trier() {
     this.listEvenements.sort(function (a, b) {
-      return b.debut.getTime() - a.debut.getTime();
+      return new Date(b.debut).getTime() - new Date(a.debut).getTime();
     })
   }
 
    ngOnInit() {
     this.popup.showLoader();
     this.evenementService.readAll().subscribe(data => {
-      console.log(data[0])
       this.listEvenements = < Evenement[] > data;
       this.popup.hideLoader();
     }, error => {

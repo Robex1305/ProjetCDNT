@@ -34,7 +34,6 @@ export class AuthenticationService {
 
     public checkToken(){
         let token = this.sessionManager.get("token");
-        console.log(token)
         return this.httpClient.get(this.baseURL + "/check_token", {
             headers: {"Authorization": token}
         });

@@ -56,18 +56,16 @@ export class EvenementService {
     public read(id: number) {
         const url = this.baseURL + "/read?id=" + id;
         let token = this.sessionManager.get("token");
-        console.log("URL: " + url);
-        console.log("ID: " + id)
         return this.httpClient.get<Evenement>(url,{
             headers: {"Authorization": token}
         })
     }
 
     public delete(id: number) {
-        const url = this.baseURL + "/delete/" + id;
+        const url = this.baseURL + "/delete?id=" + id;
         let token = this.sessionManager.get("token");
 
-        return this.httpClient.delete(url, {
+        return this.httpClient.delete<Response>(url, {
             headers: {"Authorization": token}
         });
     }

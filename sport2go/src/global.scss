@@ -47,8 +47,11 @@ html {
 }
 
 ion-content {
-    --background: rgb(234, 234, 234);
+    --background: center / cover no-repeat url('assets/sport.jpg'); 
+    background-size: cover;
 }
+
+ion-content
 
 
 .input {

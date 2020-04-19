@@ -26,8 +26,6 @@ export class UtilisateurService {
     public read(id: number) {
         const url = this.baseURL + "/read?id=" + id;
         let token = this.sessionManager.get("token");
-        console.log("URL: " + url);
-        console.log("ID: " + id)
         return this.httpClient.get(url,{
             headers: {"Authorization": token}
         })
